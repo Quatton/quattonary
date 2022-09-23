@@ -8,6 +8,11 @@
     "astro": "astro"
   },
   "devDependencies": {
-    "astro": "^1.0.0-rc.8"
+    "@astrojs/svelte": "^1.0.0",
+    "@astrojs/tailwind": "^2.0.1",
+    "astro": "^1.0.0-rc.8",
+    "autoprefixer": "^10.4.12",
+    "svelte": "^3.46.4",
+    "tailwindcss": "^3.0.24"
   }
 }
