@@ -1,0 +1,14 @@
+---
+import BookModal from "./BookModal.astro";
+import PageBox from "./PageBox.astro";
+
+const PAGE_NUM = 10;
+const pages = [...Array(PAGE_NUM).keys()];
+---
+
+<section
+  class="w-full no-scrollbar h-screen snap-mandatory overflow-y-scroll snap-y pt-16 scroll-smooth grid place-items-center"
+>
+  <BookModal />
+  <PageBox {pages} />
+</section>
