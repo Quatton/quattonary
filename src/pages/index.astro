@@ -1,10 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Book from "../components/Book/Book.astro";
+import Book from "../components/Book/Book.svelte";
 ---
 
 <Layout title="Quattonary">
-  <Book />
+  <Book client:load />
 </Layout>
 
 <style>
