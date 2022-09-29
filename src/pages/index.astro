@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-const pages = [...Array(21).keys()];
+const pages = [...Array(21).keys()].map((i) => i + 1);
 ---
 
 <Layout title="Quattonary">
@@ -31,8 +31,8 @@ const pages = [...Array(21).keys()];
   section {
     @apply grid place-items-stretch aspect-square;
     width: 80vmin;
-    grid-template-rows: 27fr 8fr 11fr 4fr 2fr 7fr 11fr 5fr 4fr 33fr;
-    grid-template-columns: 29fr 4fr 17fr 4fr 9fr 2fr 5fr 12fr 3fr 3fr 5fr 19fr;
+    grid-template-rows: repeat(112, 1fr);
+    grid-template-columns: repeat(112, 1fr);
   }
 
   article {
@@ -49,87 +49,16 @@ const pages = [...Array(21).keys()];
     filter: invert(1);
   }
 
-  section > *:nth-child(1) {
-    @apply col-span-3 row-span-4;
-  }
+  // DON'T EVER EDIT THIS
+  $widths: 50, 35, 27, 8, 19, 15, 17, 11, 6, 24, 29, 25, 9, 2, 7, 18, 16, 42, 4,
+    37, 33;
 
-  section > *:nth-child(2) {
-    @apply col-span-6 row-span-2;
-  }
-
-  section > *:nth-child(3) {
-    @apply col-span-3 row-span-1;
-  }
-
-  section > *:nth-child(4) {
-    @apply col-span-2 row-span-1;
-  }
-
-  section > *:nth-child(5) {
-    @apply col-span-1 row-span-2;
-  }
-
-  section > *:nth-child(6) {
-    @apply col-span-3 row-span-2;
-  }
-
-  section > *:nth-child(7) {
-    @apply col-span-2 row-span-3;
-  }
-
-  section > *:nth-child(8) {
-    @apply col-span-3 row-span-1;
-  }
-
-  section > *:nth-child(9) {
-    @apply col-span-2 row-span-2;
-  }
-
-  section > *:nth-child(10) {
-    @apply col-span-2 row-span-4;
-  }
-
-  section > *:nth-child(11) {
-    @apply col-span-1 row-span-5;
-  }
-
-  section > *:nth-child(12) {
-    @apply col-span-3 row-span-4;
-  }
-
-  section > *:nth-child(13) {
-    @apply col-span-1 row-span-2;
-  }
-
-  section > *:nth-child(14) {
-    @apply col-span-1 row-span-1;
-  }
-
-  section > *:nth-child(15) {
-    @apply col-span-2 row-span-1;
-  }
-
-  section > *:nth-child(16) {
-    @apply col-span-3 row-span-2;
-  }
-
-  section > *:nth-child(17) {
-    @apply col-span-3 row-span-2;
-  }
-
-  section > *:nth-child(18) {
-    @apply col-span-5 row-span-3;
-  }
-
-  section > *:nth-child(19) {
-    @apply col-span-1 row-span-1;
-  }
-
-  section > *:nth-child(20) {
-    @apply col-span-5 row-span-2;
-  }
-
-  section > *:nth-child(21) {
-    @apply col-span-2 row-span-1;
+  @for $i from 1 through 21 {
+    section > article:nth-child(#{$i}) {
+      $width: nth($widths, $i);
+      font-size: calc($width / 2) + px;
+      grid-column: span $width / span $width;
+      grid-row: span $width / span $width;
+    }
   }
 </style>
