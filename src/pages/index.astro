@@ -10,12 +10,12 @@ const pages = [...Array(21).keys()].map((i) => i + 1);
         pages.map((page) => (
           <article
             style={{
-              backgroundColor: `hsl(0, 0%,  ${Math.floor(
-                Math.random() * 20
-              )}%)`,
+              backgroundColor: `hsl(250, 5%,  ${page}%)`,
             }}
           >
-            <div class="inner">{page}</div>
+            <a href={typeof page === "number" ? `#` : `/${page}`} class="inner">
+              {page}
+            </a>
           </article>
         ))
       }
@@ -33,20 +33,31 @@ const pages = [...Array(21).keys()].map((i) => i + 1);
     width: 80vmin;
     grid-template-rows: repeat(112, 1fr);
     grid-template-columns: repeat(112, 1fr);
+
+    &:hover article {
+      scale: 0.9;
+      opacity: 0.5;
+    }
+
+    article:hover {
+      scale: 1;
+      opacity: 1;
+    }
   }
 
   article {
-    @apply flex items-center justify-center;
-    background-color: var(--color-text);
+    @apply flex items-center justify-center relative shadow-xl font-semibold;
+    transition: all 300ms ease;
+
+    & > * {
+      inset: 0;
+      transition: all 0.5s ease-in-out;
+    }
   }
 
-  .inner {
-    @apply absolute;
-    width: inherit;
-    background-color: inherit;
-    background-clip: text;
-    color: transparent;
-    filter: invert(1);
+  article a {
+    @apply absolute flex items-center justify-center select-none;
+    color: var(--color-text);
   }
 
   // DON'T EVER EDIT THIS
@@ -56,7 +67,7 @@ const pages = [...Array(21).keys()].map((i) => i + 1);
   @for $i from 1 through 21 {
     section > article:nth-child(#{$i}) {
       $width: nth($widths, $i);
-      font-size: calc($width / 2) + px;
+      font-size: calc($width / 25) + em;
       grid-column: span $width / span $width;
       grid-row: span $width / span $width;
     }
