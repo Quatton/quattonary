@@ -4,14 +4,13 @@ import BuiltWith from "./BuiltWith.astro";
 
 export interface Props {
   title: string;
+  slug?: string;
 }
 
-const { title = "Quattonary" } = Astro.props as Props;
+const { title = "Quattonary", slug } = Astro.props as Props;
 ---
 
-<Layout title={title}>
-  <BuiltWith tool="Astro" />
-
+<Layout {...{title, slug}}>
   <section>
     <article>
       <slot />

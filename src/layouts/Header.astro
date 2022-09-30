@@ -1,16 +1,49 @@
+---
+import { pages } from "src/utils/pages.ts";
+import { Icon } from "astro-icon";
+
+export interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props as Props;
+const page = pages.find((page) => page.slug === slug);
+---
+
 <header class="w-full flex items-center px-4 py-4">
-  <a href="/"> Quattonary</a>
+  <nav class="flex gap-4 items-center">
+    <a class="home" href="/">Quattonary</a>
+    {
+      page && (
+        <div class="h-6 border-l-2 border-l-slate-50" />
+        <a class="page" href={`/${slug}`}>
+          <Icon name={page.cover} />
+          {page.name}
+        </a>
+      )
+    }
+  </nav>
 </header>
 
-<style>
+<style lang="scss">
   header {
     background-color: var(--color-bg);
   }
 
-  header > a {
+  header a {
     @apply select-none hover:-translate-y-1 transition-transform duration-200;
-    font-size: 1.5em;
-    font-family: "Merriweather", serif;
-    font-weight: 700;
+
+    &.home {
+      font-size: 1.5em;
+      font-family: "Merriweather", serif;
+      font-weight: 700;
+    }
+
+    &.page {
+      @apply flex items-center gap-1 relative;
+      [astro-icon] {
+        @apply w-4;
+      }
+    }
   }
 </style>
