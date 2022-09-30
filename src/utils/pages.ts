@@ -13,8 +13,8 @@ pages[17] = {
 pages[0] = {
   ...pages[0],
   cover: "logos:vue",
-  slug: "libravue",
-  name: "Libravue",
+  slug: "libravy",
+  name: "Libravy",
 };
 for (const idx of [4, 8, 9, 13, 14, 15, 19]) {
   pages[idx - 1] = {
