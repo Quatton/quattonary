@@ -1,8 +1,21 @@
 ---
 import Layout from "src/layouts/Layout.astro";
-import BuiltWith from "src/layouts/BuiltWith.astro";
+import Libravue from "@components/libravue/Libravue.vue";
 ---
 
 <Layout title="Libravue" slug="libravue">
-  <section></section>
+  <section>
+    <Libravue />
+  </section>
 </Layout>
+
+<style is:global>
+  article {
+    @apply prose prose-invert;
+    margin: auto;
+  }
+
+  section {
+    padding: 2rem;
+  }
+</style>
