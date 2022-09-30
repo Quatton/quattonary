@@ -20,25 +20,32 @@
 </script>
 
 <template>
-  <section class="h-full grid grid-cols-4" ref="mainSection">
-    <article
-      class="aspect-square rounded-md isolate"
-      v-for="book in books"
-      v-bind:key="book.id"
-      :style="{ backgroundColor: '#' + book.hex, color: '#' + book.hex }"
-    >
-      <a v-bind:href="'libravune/' + book.hex">
-        <div
-          class="w-full h-full cover flex items-center justify-center rounded-md shadow-md origin-left transition-[rotate] duration-750"
-          :style="{ backgroundColor: '#' + book.hex, color: '#' + book.hex }"
-        >
-          <p>
-            {{ capitalize(book.tags[0]?.name ? book.tags[0]?.name : "Error") }}
-          </p>
-        </div>
-        <div class="darkener"></div>
-      </a>
-    </article>
+  <section
+    class="h-full overflow-auto flex justify-center p-8"
+    ref="mainSection"
+  >
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <article
+        class="aspect-square rounded-md isolate w-[48vmin] sm:w-[16vmin]"
+        v-for="book in books"
+        v-bind:key="book.id"
+        :style="{ backgroundColor: '#' + book.hex, color: '#' + book.hex }"
+      >
+        <a v-bind:href="'libravune/' + book.hex">
+          <div
+            class="w-full h-full cover flex items-center justify-center rounded-md shadow-md origin-left transition-transform duration-750"
+            :style="{ backgroundColor: '#' + book.hex, color: '#' + book.hex }"
+          >
+            <p>
+              {{
+                capitalize(book.tags[0]?.name ? book.tags[0]?.name : "Error")
+              }}
+            </p>
+          </div>
+          <div class="darkener"></div>
+        </a>
+      </article>
+    </div>
   </section>
 </template>
 
@@ -47,8 +54,6 @@
 
   article {
     position: relative;
-    width: 16vmin;
-    perspective: 800px;
 
     .darkener {
       position: absolute;
@@ -58,7 +63,7 @@
     }
 
     &:hover .cover {
-      rotate: y -30deg;
+      transform: perspective(800px) rotateY(-45deg);
     }
 
     p {
