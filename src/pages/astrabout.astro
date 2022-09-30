@@ -1,0 +1,21 @@
+---
+import BuiltWith from "src/layouts/BuiltWith.astro";
+import Layout from "src/layouts/Layout.astro";
+import Astrabout from "src/components/Astrabout.mdx";
+---
+
+<Layout title="Astrabout">
+  <BuiltWith tool="Astro" />
+  <section>
+    <article>
+      <Astrabout />
+    </article>
+  </section>
+</Layout>
+
+<style is:global>
+  article {
+    @apply prose prose-invert;
+    margin: auto;
+  }
+</style>

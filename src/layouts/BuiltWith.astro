@@ -1,0 +1,11 @@
+---
+export interface Props {
+  tool: string;
+}
+
+const { tool } = Astro.props as Props;
+---
+
+<section class="w-full px-4 py-2 text-center">
+  <p>This page is built with <span class="text-purple-300">{tool}</span>.</p>
+</section>
