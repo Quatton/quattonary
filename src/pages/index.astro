@@ -14,11 +14,8 @@ import { pages } from "../utils/pages.ts";
               backgroundColor: `hsl(250, 5%,  ${page.id}%)`,
             }}
           >
-            {page.cover && <Icon name={page.cover} />}
-            <a
-              href={typeof page.slug === "number" ? `#` : `/${page.slug}`}
-              class="inner"
-            >
+            <a href={typeof page.slug === "number" ? `#` : `/${page.slug}`}>
+              {page.cover && <Icon name={page.cover} />}
               {page.name}
             </a>
           </article>
@@ -39,43 +36,51 @@ import { pages } from "../utils/pages.ts";
     grid-template-rows: repeat(112, 1fr);
     grid-template-columns: repeat(112, 1fr);
 
-    &:hover article {
-      border-radius: 50% 50%;
-      scale: 0.9;
-      opacity: 0.5;
+    &:is(:hover) {
+      article,
+      a {
+        border-radius: 50% 50%;
+        opacity: 0.5;
+      }
+      article {
+        scale: 0.9;
+      }
     }
 
     article:hover {
-      border-radius: 0 0;
-      scale: 1;
-      opacity: 1;
-      [astro-icon] {
-        transition: transform 300ms ease-out;
-        transform: translateX(0);
+      &,
+      a {
+        border-radius: 0 0;
+        scale: 1;
+        opacity: 1;
       }
     }
   }
 
   article {
-    @apply flex items-center justify-center 
-    relative shadow-xl font-semibold overflow-clip;
+    @apply flex items-center justify-center isolate
+    relative shadow-xl font-semibold;
     transition: all 300ms ease;
 
-    & > * {
-      inset: 0;
-      transition: all 0.5s ease-in-out;
-    }
-
     [astro-icon] {
+      position: absolute;
       opacity: 0.5;
       width: 50%;
       transform: translateX(-100%);
-    }
-  }
 
-  article a {
-    @apply absolute flex items-center justify-center select-none;
-    color: var(--color-text);
+      transition: transform 300ms ease-out;
+    }
+
+    a {
+      @apply absolute overflow-clip flex items-center justify-center select-none;
+      color: var(--color-text);
+      inset: 0;
+      &:is(:hover, :focus) {
+        [astro-icon] {
+          transform: translateX(0);
+        }
+      }
+    }
   }
 
   // DON'T EVER EDIT THIS

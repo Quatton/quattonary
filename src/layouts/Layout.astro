@@ -24,28 +24,32 @@ const { title, slug = "" } = Astro.props as Props;
       <slot />
     </main>
     <style lang="scss">
+      @use "src/global" as *;
+
       @import url("https://fonts.googleapis.com/css2?family=Kumar+One+Outline&family=M+PLUS+Rounded+1c:wght@100;300;400;500;700&family=Mitr:wght@200;300;400;500&display=swap");
       @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
       @import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
 
       :root {
-        --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
-        --font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
-        --font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
+        --font-size-base: #{$font-size-base};
+        --font-size-lg: #{$font-size-lg};
+        --font-size-xl: #{$font-size-xl};
 
-        --color-bg: #0f0f0f;
-        --color-text: #fbfbfb;
-        --color-border: #ece3df;
+        --color-bg: #{$color-bg};
+        --color-text: #{$color-text};
+        --color-border: #{$color-border};
 
-        --color-primary-dark: #2176ae;
-        --color-primary: #57b8ff;
-        --color-secondary-dark: #b66d0d;
-        --color-secondary: #fbb13c;
-        --color-accent: #fe6847;
+        --color-primary-dark: #{$color-primary-dark};
+        --color-primary: #{$color-primary};
+        --color-secondary-dark: #{$color-secondary-dark};
+        --color-secondary: #{$color-secondary};
+        --color-accent: #{$color-accent};
 
-        --color-light: #bcabae;
-        --color-neutral: #2d2e2e;
-        --color-gray: #716969;
+        --color-light: #{$color-light};
+        --color-neutral: #{$color-neutral};
+        --color-gray: #{$color-gray};
+
+        --color-vue: #{$color-vue};
       }
 
       *,
@@ -55,7 +59,10 @@ const { title, slug = "" } = Astro.props as Props;
       }
 
       html {
-        font-family: "Lato", system-ui, sans-serif;
+        font-family: "Lato", ui-sans-serif, system-ui, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+          "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol", "Noto Color Emoji";
         font-size: var(--font-size-base);
         color: var(--color-text);
         margin: 0;
@@ -73,6 +80,7 @@ const { title, slug = "" } = Astro.props as Props;
       }
 
       main {
+        @apply scroll-smooth;
         background-color: var(--color-bg);
         overflow: auto;
       }
