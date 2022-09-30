@@ -1,25 +1,7 @@
 ---
 import { Icon } from "astro-icon";
 import Layout from "../layouts/Layout.astro";
-const pages = [...Array(21).keys()].map((i) => ({
-  id: i + 1,
-  cover: null,
-  slug: (i + 1).toString(),
-  name: (i + 1).toString(),
-}));
-pages[17] = {
-  ...pages[17],
-  cover: "logos:astro",
-  slug: "astrabout",
-  name: "Astrabout",
-};
-for (const idx of [4, 8, 9, 13, 14, 15, 19]) {
-  pages[idx - 1] = {
-    ...pages[idx - 1],
-    slug: "toosmall",
-    name: "",
-  };
-}
+import { pages } from "../utils/pages.ts";
 ---
 
 <Layout title="Quattonary">
