@@ -96,7 +96,7 @@ pages[17] = {
   @for $i from 1 through 21 {
     section > article:nth-child(#{$i}) {
       $width: nth($widths, $i);
-      font-size: calc($width / 25) + em;
+      font-size: calc($width / 10) + vmin;
       grid-column: span $width / span $width;
       grid-row: span $width / span $width;
     }
