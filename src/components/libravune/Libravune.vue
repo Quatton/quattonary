@@ -22,12 +22,22 @@
 <template>
   <section class="h-full grid grid-cols-4" ref="mainSection">
     <article
-      class="aspect-square rounded-md flex items-center justify-center"
+      class="aspect-square rounded-md isolate"
       v-for="book in books"
       v-bind:key="book.id"
       :style="{ backgroundColor: '#' + book.hex, color: '#' + book.hex }"
     >
-      <p>{{ capitalize(book.tags[0].name) }}</p>
+      <a v-bind:href="'libravune/' + book.hex">
+        <div
+          class="w-full h-full cover flex items-center justify-center rounded-md shadow-md origin-left transition-[rotate] duration-750"
+          :style="{ backgroundColor: '#' + book.hex, color: '#' + book.hex }"
+        >
+          <p>
+            {{ capitalize(book.tags[0]?.name ? book.tags[0]?.name : "Error") }}
+          </p>
+        </div>
+        <div class="darkener"></div>
+      </a>
     </article>
   </section>
 </template>
@@ -38,6 +48,19 @@
   article {
     position: relative;
     width: 16vmin;
+    perspective: 800px;
+
+    .darkener {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background-color: hsl(0 0% 0% / 0.5);
+    }
+
+    &:hover .cover {
+      rotate: y -30deg;
+    }
+
     p {
       margin: auto;
       position: absolute;
