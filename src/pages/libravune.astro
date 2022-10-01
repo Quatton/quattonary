@@ -20,15 +20,14 @@ const books = json.colors;
 </Layout>
 
 <style lang="scss" is:global>
-  article {
-    @apply prose prose-invert;
-    margin: auto;
-  }
-
   section {
-    padding: 2rem;
     &.header {
+      padding: 2rem;
       background-color: var(--color-vue);
+      article {
+        @apply prose prose-invert;
+        margin: auto;
+      }
     }
   }
 </style>

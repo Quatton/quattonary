@@ -540,6 +540,11 @@
   resolved "https://registry.yarnpkg.com/@esbuild/linux-loong64/-/linux-loong64-0.15.9.tgz#b658a97babf1f40783354af7039b84c3fdfc3fc3"
   integrity sha512-O+NfmkfRrb3uSsTa4jE3WApidSe3N5++fyOVGP1SmMZi4A3BZELkhUUvj5hwmMuNdlpzAZ8iAPz2vmcR7DCFQA==
 
+"@iconify-prerendered/vue-mdi@^0.13.1663305505":
+  version "0.13.1663305505"
+  resolved "https://registry.yarnpkg.com/@iconify-prerendered/vue-mdi/-/vue-mdi-0.13.1663305505.tgz#664d2e94dcb6b087258455cfa6d7a8d2e256ce3d"
+  integrity sha512-55Bn1JlC774sicBXFnWFPzPs39mNC6XADQKpjgN98u34zVkoWUdDc6aohwtauGRZXMr2XeQf02nfe1IB8AMMyw==
+
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@jridgewell/gen-mapping/-/gen-mapping-0.1.1.tgz#e5d2e450306a9491e3bd77e323e38d7aff315996"
