@@ -21,6 +21,7 @@
   "dependencies": {
     "@astrojs/mdx": "^0.11.3",
     "@astrojs/vue": "^1.1.0",
+    "@iconify-prerendered/vue-mdi": "^0.13.1663305505",
     "astro-icon": "^0.7.3",
     "lodash": "^4.17.21",
     "vue": "^3.2.30"

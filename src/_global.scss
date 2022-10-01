@@ -1,0 +1,19 @@
+$font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
+$font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
+$font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
+
+$color-bg: #0f0f0f;
+$color-text: #fbfbfb;
+$color-border: #ece3df;
+
+$color-primary-dark: #2176ae;
+$color-primary: #57b8ff;
+$color-secondary-dark: #b66d0d;
+$color-secondary: #fbb13c;
+$color-accent: #fe6847;
+
+$color-light: #bcabae;
+$color-neutral: #2d2e2e;
+$color-gray: #716969;
+
+$color-vue: hsl(153, 48%, 49%);

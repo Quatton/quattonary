@@ -1,7 +1,7 @@
 export const pages = Array.from(Array(21).keys()).map((i) => ({
   id: i + 1,
   cover: null,
-  slug: (i + 1).toString(),
+  slug: "notyet",
   name: (i + 1).toString(),
 }));
 pages[17] = {
@@ -13,8 +13,8 @@ pages[17] = {
 pages[0] = {
   ...pages[0],
   cover: "logos:vue",
-  slug: "libravy",
-  name: "Libravy",
+  slug: "libravune",
+  name: "Libravune",
 };
 for (const idx of [4, 8, 9, 13, 14, 15, 19]) {
   pages[idx - 1] = {
