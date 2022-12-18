@@ -1,0 +1,23 @@
+---
+const { slug } = Astro.props as { slug: string };
+---
+
+<div class="flex flex-col items-center justify-center">
+  <h2>Oh right... I might have given you a code or something.</h2>
+  <form
+    action={`/api/session`}
+    method="post"
+    class="text-lg flex items-center flex-col gap-2"
+  >
+    <input
+      type="text"
+      name="code"
+      placeholder="Your code here"
+      class="px-4 py-2 rounded-md mb-4 shadow-inner border border-zinc-700"
+    />
+    <input
+      type="submit"
+      class="bg-pink-800 rounded-md px-4 py-2 border-pink-700 cursor-pointer hover:bg-pink-600"
+    />
+  </form>
+</div>

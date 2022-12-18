@@ -16,6 +16,12 @@ pages[0] = {
   slug: "libravune",
   name: "Libravune",
 };
+pages[1] = {
+  ...pages[0],
+  cover: "noto:party-popper",
+  slug: "hny",
+  name: "HNY",
+};
 for (const idx of [4, 8, 9, 13, 14, 15, 19]) {
   pages[idx - 1] = {
     ...pages[idx - 1],

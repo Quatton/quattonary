@@ -1,0 +1,53 @@
+---
+import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import MarkdownLayout from "src/layouts/MarkdownLayout.astro";
+import { notion } from "src/utils/notion";
+import Block from "@components/hny/Block.astro";
+
+type Access = {
+  [slug: string]: boolean;
+};
+
+const { slug } = Astro.params as { slug: string };
+
+const page = (
+  await notion.databases.query({
+    database_id: import.meta.env.NOTION_DATABASE_ID,
+    filter: { property: "slug", rich_text: { equals: slug } },
+  })
+).results[0] as PageObjectResponse;
+
+if (
+  page.properties.code.type === "rich_text" &&
+  (!page.properties.code.rich_text[0] ||
+    page.properties.code.rich_text[0].plain_text === "")
+) {
+  await notion.pages.update({
+    page_id: page.id,
+    properties: {
+      code: {
+        rich_text: [{ text: { content: page.id.slice(0, 6).toUpperCase() } }],
+      },
+    },
+  });
+}
+
+if (
+  Astro.clientAddress !== "::1" &&
+  page.properties.read.type === "checkbox" &&
+  !page.properties.read.checkbox
+) {
+  await notion.pages.update({
+    page_id: page.id,
+    properties: {
+      read: {
+        checkbox: true,
+      },
+    },
+  });
+}
+---
+
+<MarkdownLayout title="HNY" slug="hny">
+  <Block page={page} />
+</MarkdownLayout>

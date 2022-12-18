@@ -11,8 +11,9 @@
     "@astrojs/svelte": "^1.0.0",
     "@astrojs/tailwind": "^2.0.1",
     "@tailwindcss/typography": "^0.5.7",
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/lodash": "^4.14.185",
-    "astro": "^1.2.0",
+    "astro": "^1.7.1",
     "autoprefixer": "^10.4.12",
     "sass": "^1.55.0",
     "svelte": "^3.46.4",
@@ -20,10 +21,13 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^0.11.3",
+    "@astrojs/vercel": "^2.3.6",
     "@astrojs/vue": "^1.1.0",
     "@formkit/auto-animate": "^1.0.0-beta.3",
     "@iconify-prerendered/vue-mdi": "^0.13.1663305505",
+    "@notionhq/client": "^2.2.2",
     "astro-icon": "^0.7.3",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "vue": "^3.2.30"
   }

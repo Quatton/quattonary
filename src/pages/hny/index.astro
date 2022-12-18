@@ -1,0 +1,45 @@
+---
+import MarkdownLayout from "src/layouts/MarkdownLayout.astro";
+import HNY from "src/components/hny/HNY.mdx";
+import { Icon } from "astro-icon";
+---
+
+<MarkdownLayout title="HNY" slug="hny">
+  <nav class="flex items-center gap-2">
+    <a
+      href="/th"
+      class="mb-4 flex items-center gap-2 hover:underline no-underline"
+      >ภาษาไทย
+      <Icon class="w-4 h-4" name="emojione:flag-for-thailand" />
+    </a>
+    <a
+      href="/"
+      class="mb-4 flex items-center gap-2 hover:underline no-underline"
+      >English
+      <Icon class="w-4 h-4" name="emojione:flag-for-united-states" />
+    </a>
+    <a
+      href="/th"
+      class="mb-4 flex items-center gap-2 hover:underline no-underline"
+      >日本語
+      <Icon class="w-4 h-4" name="emojione:flag-for-japan" />
+    </a>
+  </nav>
+  <HNY />
+  <form
+    action="/api/session"
+    method="post"
+    class="text-lg flex items-center flex-col gap-2"
+  >
+    <input
+      type="text"
+      name="code"
+      placeholder="Your code here"
+      class="px-4 py-2 rounded-md shadow-inner border border-zinc-700"
+    />
+    <input
+      type="submit"
+      class="bg-pink-800 rounded-md px-4 py-2 border-pink-700 hover:bg-pink-500 cursor-pointer"
+    />
+  </form>
+</MarkdownLayout>
