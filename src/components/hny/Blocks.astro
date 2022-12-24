@@ -5,6 +5,7 @@ import {
 } from "@notionhq/client/build/src/api-endpoints";
 import { notion } from "src/utils/notion";
 import Family from "src/components/hny/presets/Family.mdx";
+import Troll from "./presets/Troll.astro";
 import RichText from "./RichText.astro";
 import { Image } from "@astrojs/image/components";
 
@@ -36,7 +37,7 @@ const content = (
             case "family":
               return <Family />;
             case "troll":
-              return <div class="h-screen" />;
+              return <Troll />;
             default:
               return <p>{block.paragraph.rich_text[0]?.plain_text}</p>;
           }

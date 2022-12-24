@@ -8,7 +8,3 @@ import {
 export const notion = new Client({
   auth: import.meta.env.NOTION_SECRET,
 });
-
-export interface Props {
-  slug: RichTextItemResponse;
-}
