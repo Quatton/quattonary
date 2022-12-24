@@ -1,0 +1,74 @@
+---
+import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import { notion } from "src/utils/notion";
+import Blocks from "@components/hny/Blocks.astro";
+import Layout from "src/layouts/Layout.astro";
+
+const { slug } = Astro.params as { slug: string };
+
+const page = (
+  await notion.databases.query({
+    database_id: import.meta.env.NOTION_DATABASE_ID,
+    filter: { property: "slug", rich_text: { equals: slug } },
+  })
+).results[0] as PageObjectResponse;
+
+if (
+  page.properties.code.type === "rich_text" &&
+  (!page.properties.code.rich_text[0] ||
+    page.properties.code.rich_text[0].plain_text === "")
+) {
+  await notion.pages.update({
+    page_id: page.id,
+    properties: {
+      code: {
+        rich_text: [{ text: { content: page.id.slice(0, 6).toUpperCase() } }],
+      },
+    },
+  });
+}
+
+if (
+  Astro.clientAddress !== "::1" &&
+  page.properties.read.type === "checkbox" &&
+  !page.properties.read.checkbox
+) {
+  await notion.pages.update({
+    page_id: page.id,
+    properties: {
+      read: {
+        checkbox: true,
+      },
+    },
+  });
+}
+---
+
+<Layout title="HNY" slug="hny">
+  <section>
+    <article class="bg-zinc-900 border border-zinc-400 rounded-md">
+      <h1>
+        <span
+          class="color bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent"
+        >
+          HAPPY NEW YEAR 2023!
+        </span>
+        🎉
+      </h1>
+      <Blocks page={page} />
+      <h2>อะตอม</h2>
+    </article>
+  </section>
+</Layout>
+
+<style is:global>
+  article {
+    @apply prose prose-invert;
+    margin: auto;
+    padding: 2rem;
+  }
+
+  section {
+    padding: 2rem;
+  }
+</style>

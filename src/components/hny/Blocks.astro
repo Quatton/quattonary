@@ -1,0 +1,71 @@
+---
+import {
+  BlockObjectResponse,
+  PageObjectResponse,
+} from "@notionhq/client/build/src/api-endpoints";
+import { notion } from "src/utils/notion";
+import Family from "src/components/hny/presets/Family.mdx";
+import Troll from "./presets/Troll.astro";
+import RichText from "./RichText.astro";
+import { Image } from "@astrojs/image/components";
+
+const { page } = Astro.props as { page: PageObjectResponse };
+
+const content = (
+  await notion.blocks.children.list({
+    block_id: page.url.match(/https:\/\/www.notion.so\/(\w+)/)[1],
+  })
+).results.filter((block): block is BlockObjectResponse =>
+  block.hasOwnProperty("type")
+);
+---
+
+{
+  content.map((block) => {
+    switch (block.type) {
+      case "heading_1":
+        return <h1>{block.heading_1.rich_text[0].plain_text}</h1>;
+      case "heading_2":
+        return <h2>{block.heading_2.rich_text[0].plain_text}</h2>;
+      case "heading_3":
+        return <h3>{block.heading_3.rich_text[0].plain_text}</h3>;
+      case "paragraph":
+        const preset =
+          block.paragraph.rich_text[0]?.plain_text.match(/\\(\w+)/);
+        if (preset)
+          switch (preset[1]) {
+            case "family":
+              return <Family />;
+            case "troll":
+              return <Troll />;
+            default:
+              return <p>{block.paragraph.rich_text[0]?.plain_text}</p>;
+          }
+        return (
+          <p>
+            {block.paragraph.rich_text.map((richText) => (
+              <RichText richText={richText} />
+            ))}
+          </p>
+        );
+      case "image":
+        return block.image.type === "external" ? (
+          <Image
+            src={block.image.external.url}
+            alt={block.image.caption[0]?.plain_text || "Image"}
+            width={160}
+            aspectRatio="4:3"
+          />
+        ) : (
+          <Image
+            src={block.image.file.url}
+            alt={block.image.caption[0]?.plain_text || "Image"}
+            width={160}
+            aspectRatio="4:3"
+          />
+        );
+      default:
+        return <br />;
+    }
+  })
+}
