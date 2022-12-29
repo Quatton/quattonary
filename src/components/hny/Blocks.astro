@@ -6,6 +6,8 @@ import {
 import { notion } from "src/utils/notion";
 import Family from "src/components/hny/presets/Family.mdx";
 import Troll from "./presets/Troll.astro";
+import RichText from "./RichText.astro";
+import { Image } from "@astrojs/image/components";
 
 const { page } = Astro.props as { page: PageObjectResponse };
 
@@ -17,15 +19,6 @@ const content = (
   block.hasOwnProperty("type")
 );
 ---
-
-<h1>
-  <span
-    class="color bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent"
-  >
-    HAPPY NEW YEAR 2023!
-  </span>
-  🎉
-</h1>
 
 {
   content.map((block) => {
@@ -39,18 +32,40 @@ const content = (
       case "paragraph":
         const preset =
           block.paragraph.rich_text[0]?.plain_text.match(/\\(\w+)/);
-        if (!preset) return <p>{block.paragraph.rich_text[0]?.plain_text}</p>;
-        switch (preset[1]) {
-          case "family":
-            return <Family />;
-          case "troll":
-            return <Troll />;
-          default:
-            return <p>{block.paragraph.rich_text[0]?.plain_text}</p>;
-        }
+        if (preset)
+          switch (preset[1]) {
+            case "family":
+              return <Family />;
+            case "troll":
+              return <Troll />;
+            default:
+              return <p>{block.paragraph.rich_text[0]?.plain_text}</p>;
+          }
+        return (
+          <p>
+            {block.paragraph.rich_text.map((richText) => (
+              <RichText richText={richText} />
+            ))}
+          </p>
+        );
+      case "image":
+        return block.image.type === "external" ? (
+          <Image
+            src={block.image.external.url}
+            alt={block.image.caption[0]?.plain_text || "Image"}
+            width={160}
+            aspectRatio="4:3"
+          />
+        ) : (
+          <Image
+            src={block.image.file.url}
+            alt={block.image.caption[0]?.plain_text || "Image"}
+            width={160}
+            aspectRatio="4:3"
+          />
+        );
       default:
         return <br />;
     }
   })
 }
-<h2>อะตอม</h2>
