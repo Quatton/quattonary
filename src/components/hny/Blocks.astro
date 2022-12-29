@@ -4,10 +4,17 @@ import {
   PageObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 import { notion } from "src/utils/notion";
-import Family from "src/components/hny/presets/Family.mdx";
-import Troll from "./presets/Troll.astro";
 import RichText from "./RichText.astro";
 import { Image } from "@astrojs/image/components";
+import {
+  CJLCJ,
+  Family,
+  MEXTSenior,
+  Tokyo,
+  Troll,
+  U6,
+  Y0,
+} from "./presets/index.astro";
 
 const { page } = Astro.props as { page: PageObjectResponse };
 
@@ -38,6 +45,16 @@ const content = (
               return <Family />;
             case "troll":
               return <Troll />;
+            case "tokyo":
+              return <Tokyo />;
+            case "u6":
+              return <U6 />;
+            case "cjlcj":
+              return <CJLCJ />;
+            case "mextsenior":
+              return <MEXTSenior />;
+            case "y0":
+              return <Y0 />;
             default:
               return <p>{block.paragraph.rich_text[0]?.plain_text}</p>;
           }
