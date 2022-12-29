@@ -7,8 +7,6 @@ import vercel from "@astrojs/vercel/serverless";
 
 import image from "@astrojs/image";
 
-import vercel from "@astrojs/vercel/serverless";
-
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind(), svelte(), mdx(), vue(), image()],
