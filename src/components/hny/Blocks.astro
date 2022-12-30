@@ -9,6 +9,7 @@ import { Image } from "@astrojs/image/components";
 import {
   CJLCJ,
   Family,
+  K29,
   MEXTJ,
   MEXTSenior,
   Tokyo,
@@ -58,6 +59,8 @@ const content = (
               return <Y0 />;
             case "mextj":
               return <MEXTJ />;
+            case "k29":
+              return <K29 />;
             default:
               return <p>{block.paragraph.rich_text[0]?.plain_text}</p>;
           }
