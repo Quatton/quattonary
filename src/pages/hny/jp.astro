@@ -1,6 +1,6 @@
 ---
 import MarkdownLayout from "src/layouts/MarkdownLayout.astro";
-import HNY from "src/components/hny/HNY.mdx";
+import HNYTH from "src/components/hny/HNYTH.mdx";
 import { Icon } from "astro-icon";
 ---
 
@@ -13,19 +13,19 @@ import { Icon } from "astro-icon";
       <Icon class="w-4 h-4" name="emojione:flag-for-thailand" />
     </a>
     <a
-      href="#"
+      href="/hny"
       class="mb-4 flex items-center gap-2 hover:underline no-underline"
       >English
       <Icon class="w-4 h-4" name="emojione:flag-for-united-states" />
     </a>
     <a
-      href="/hny/jp"
+      href="#"
       class="mb-4 flex items-center gap-2 hover:underline no-underline"
       >日本語
       <Icon class="w-4 h-4" name="emojione:flag-for-japan" />
     </a>
   </nav>
-  <HNY />
+  <HNYTH />
   <form
     action="/api/session"
     method="post"
@@ -34,7 +34,7 @@ import { Icon } from "astro-icon";
     <input
       type="text"
       name="code"
-      placeholder="Your code here"
+      placeholder="特別なコード"
       class="px-4 py-2 rounded-md shadow-inner border border-zinc-700"
     />
     <input
