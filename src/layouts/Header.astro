@@ -15,11 +15,13 @@ const page = pages.find((page) => page.slug === slug);
     <a class="home" href="/">Quattonary</a>
     {
       page && (
-        <div class="h-6 border-l-2 border-l-slate-50" />
-        <a class="page" href={`/${slug}`}>
-          <Icon name={page.cover} />
-          {page.name}
-        </a>
+        <>
+          <div class="h-6 border-l-2 border-l-slate-50" />
+          <a class="page" href={`/${slug}`}>
+            <Icon name={page.cover} />
+            {page.name}
+          </a>
+        </>
       )
     }
   </nav>
