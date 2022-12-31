@@ -22,10 +22,10 @@ import {
 } from "./presets/index.astro";
 
 const { page } = Astro.props as { page: PageObjectResponse };
-
+console.log(page);
 const content = (
   await notion.blocks.children.list({
-    block_id: page.url.match(/https:\/\/www.notion.so\/(\w+)/)[1],
+    block_id: page.id,
   })
 ).results.filter((block): block is BlockObjectResponse =>
   block.hasOwnProperty("type")
