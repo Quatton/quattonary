@@ -69,6 +69,8 @@ const content = (
               return <CommonF />;
             case "commont":
               return <CommonT />;
+            case "hrk":
+              return <HRK />;
             default:
               return <p>{block.paragraph.rich_text[0]?.plain_text}</p>;
           }
