@@ -22,7 +22,6 @@ import {
 } from "./presets/index.astro";
 
 const { page } = Astro.props as { page: PageObjectResponse };
-console.log(page);
 const content = (
   await notion.blocks.children.list({
     block_id: page.id,
