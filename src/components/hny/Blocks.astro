@@ -8,10 +8,13 @@ import RichText from "./RichText.astro";
 import { Image } from "@astrojs/image/components";
 import {
   CJLCJ,
+  CommonF,
+  CommonT,
   Family,
   K29,
   MEXTJ,
   MEXTSenior,
+  MWITTH,
   Tokyo,
   Troll,
   U6,
@@ -61,6 +64,12 @@ const content = (
               return <MEXTJ />;
             case "k29":
               return <K29 />;
+            case "mwitth":
+              return <MWITTH />;
+            case "commonf":
+              return <CommonF />;
+            case "commont":
+              return <CommonT />;
             default:
               return <p>{block.paragraph.rich_text[0]?.plain_text}</p>;
           }
