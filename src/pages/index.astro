@@ -14,7 +14,9 @@ import { pages } from "../utils/pages";
               backgroundColor: `hsl(250, 5%,  ${page.id}%)`,
             }}
           >
-            <a href={typeof page.slug === "number" ? `#` : `/${page.slug}`}>
+            <a
+              href={page.slug.match(/^http/) ? `${page.slug}` : `/${page.slug}`}
+            >
               {page.cover && <Icon name={page.cover} />}
               {page.name}
             </a>

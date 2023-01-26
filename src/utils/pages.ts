@@ -12,9 +12,9 @@ pages[17] = {
 };
 pages[0] = {
   ...pages[0],
-  cover: "logos:vue",
-  slug: "libravune",
-  name: "Libravune",
+  cover: "noto:book",
+  slug: "https://books.quattonary.com",
+  name: "Quatton Books",
 };
 pages[1] = {
   ...pages[0],
