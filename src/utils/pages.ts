@@ -12,7 +12,7 @@ pages[17] = {
 };
 pages[0] = {
   ...pages[0],
-  cover: "noto:book",
+  cover: "noto:books",
   slug: "https://books.quattonary.com",
   name: "Quatton Books",
 };
