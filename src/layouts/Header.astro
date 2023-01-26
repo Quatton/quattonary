@@ -18,7 +18,7 @@ const page = pages.find((page) => page.slug === slug);
         <>
           <div class="h-6 border-l-2 border-l-slate-50" />
           <a class="page" href={`/${slug}`}>
-            <Icon name={page.cover} />
+            <Icon name={page.cover} color={page.color} />
             {page.name}
           </a>
         </>

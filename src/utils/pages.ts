@@ -2,6 +2,7 @@ export const pages = Array.from(Array(21).keys()).map((i) => ({
   id: i + 1,
   cover: null,
   slug: "notyet",
+  color: null,
   name: (i + 1).toString(),
 }));
 pages[17] = {
@@ -17,10 +18,23 @@ pages[0] = {
   name: "Quatton Books",
 };
 pages[1] = {
-  ...pages[0],
+  ...pages[1],
   cover: "noto:party-popper",
   slug: "hny",
   name: "HNY",
+};
+pages[2] = {
+  ...pages[2],
+  cover: "logos:flutter",
+  slug: "https://github.com/Quatton/intune",
+  name: "Intune",
+};
+pages[10] = {
+  ...pages[10],
+  cover: "teenyicons:flag-solid",
+  color: "#c41230",
+  slug: "https://qtnbd.notion.site/CTF-Write-ups-Archives-ed5a5ac875a54862bb330b1b4a5e0521",
+  name: "CTF Archives",
 };
 for (const idx of [4, 8, 9, 13, 14, 15, 19]) {
   pages[idx - 1] = {
