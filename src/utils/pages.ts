@@ -20,7 +20,7 @@ pages[0] = {
 pages[1] = {
   ...pages[1],
   cover: "noto:party-popper",
-  slug: "hny",
+  slug: "hny/facts",
   name: "HNY",
 };
 pages[2] = {
