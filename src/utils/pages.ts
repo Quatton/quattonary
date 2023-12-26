@@ -1,8 +1,8 @@
-export const pages = Array.from(Array(21).keys()).map((i) => ({
+export const pages = Array.from({ length: 21 }, (_, i) => ({
   id: i + 1,
-  cover: null,
+  cover: null as string | null,
   slug: "notyet",
-  color: null,
+  color: null as string | null,
   name: (i + 1).toString(),
 }));
 pages[17] = {
