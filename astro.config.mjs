@@ -14,9 +14,14 @@ export default defineConfig({
     vue(),
     icon({
       include: {
-        teenyicons: ["*"],
-        logos: ["*"],
-        noto: ["*"],
+        teenyicons: ["flag-solid"],
+        logos: ["astro", "flutter"],
+        emojione: [
+          "flag-for-thailand",
+          "flag-for-united-states",
+          "flag-for-japan",
+        ],
+        noto: ["books", "party-popper"],
       },
     }),
   ],
