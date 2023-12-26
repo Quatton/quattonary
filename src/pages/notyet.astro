@@ -1,9 +1,10 @@
 ---
+import { getEntry } from "astro:content";
 import MarkdownLayout from "src/layouts/MarkdownLayout.astro";
-
-import NotYet from "src/components/NotYet.mdx";
+const notYet = await getEntry("front", "astrabout");
+const { Content, headings } = await notYet.render();
 ---
 
-<MarkdownLayout title="Astrabout">
-  <NotYet />
+<MarkdownLayout title="Too small!">
+  <Content />
 </MarkdownLayout>

@@ -1,7 +1,10 @@
 ---
+import { getEntry } from "astro:content";
 import MarkdownLayout from "src/layouts/MarkdownLayout.astro";
+const astrabout = await getEntry("front", "astrabout");
+const { Content, headings } = await astrabout.render();
 ---
 
-<MarkdownLayout title="Astrabout" slug="astrabout">
-  <Astrabout />
+<MarkdownLayout title="Astrabout">
+  <Content />
 </MarkdownLayout>

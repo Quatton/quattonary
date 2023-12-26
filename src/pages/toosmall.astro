@@ -1,9 +1,10 @@
 ---
+import { getEntry } from "astro:content";
 import MarkdownLayout from "src/layouts/MarkdownLayout.astro";
-
-import TooSmall from "src/components/TooSmall.mdx";
+const tooSmall = await getEntry("front", "too-small");
+const { Content, headings } = await tooSmall.render();
 ---
 
-<MarkdownLayout title="Astrabout">
-  <TooSmall />
+<MarkdownLayout title="Too small!">
+  <Content />
 </MarkdownLayout>
