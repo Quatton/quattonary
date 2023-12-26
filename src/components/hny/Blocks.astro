@@ -1,27 +1,11 @@
 ---
-import {
+import type {
   BlockObjectResponse,
   PageObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 import { notion } from "src/utils/notion";
 import RichText from "./RichText.astro";
-import { Image } from "@astrojs/image/components";
-import {
-  CJLCJ,
-  CommonF,
-  CommonT,
-  Family,
-  HRK,
-  K29,
-  MEXTJ,
-  MEXTSenior,
-  MWITTH,
-  Tokyo,
-  Troll,
-  U6,
-  Y0,
-} from "./presets/index.astro";
-
+import { Image } from "astro:assets";
 const { page } = Astro.props as { page: PageObjectResponse };
 const content = (
   await notion.blocks.children.list({
@@ -46,32 +30,6 @@ const content = (
           block.paragraph.rich_text[0]?.plain_text.match(/\\(\w+)/);
         if (preset)
           switch (preset[1]) {
-            case "family":
-              return <Family />;
-            case "troll":
-              return <Troll />;
-            case "tokyo":
-              return <Tokyo />;
-            case "u6":
-              return <U6 />;
-            case "cjlcj":
-              return <CJLCJ />;
-            case "mextsenior":
-              return <MEXTSenior />;
-            case "y0":
-              return <Y0 />;
-            case "mextj":
-              return <MEXTJ />;
-            case "k29":
-              return <K29 />;
-            case "mwitth":
-              return <MWITTH />;
-            case "commonf":
-              return <CommonF />;
-            case "commont":
-              return <CommonT />;
-            case "hrk":
-              return <HRK />;
             default:
               return <p>{block.paragraph.rich_text[0]?.plain_text}</p>;
           }
@@ -87,15 +45,15 @@ const content = (
           <Image
             src={block.image.external.url}
             alt={block.image.caption[0]?.plain_text || "Image"}
-            width={160}
-            aspectRatio="4:3"
+            width="160"
+            height="120"
           />
         ) : (
           <Image
             src={block.image.file.url}
             alt={block.image.caption[0]?.plain_text || "Image"}
-            width={160}
-            aspectRatio="4:3"
+            width="160"
+            height="120"
           />
         );
       default:

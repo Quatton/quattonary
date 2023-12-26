@@ -6,11 +6,9 @@ import vue from "@astrojs/vue";
 import vercel from "@astrojs/vercel/serverless";
 import icon from "astro-icon";
 
-import image from "@astrojs/image";
-
-// https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), svelte(), mdx(), vue(), image(), icon()],
+  integrations: [tailwind(), svelte(), mdx(), vue(), icon()],
+  site: "https://quattonary.com",
   vite: {
     ssr: {
       external: ["svgo"],
