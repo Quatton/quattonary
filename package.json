@@ -14,7 +14,7 @@
     "@tailwindcss/typography": "^0.5.10",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/lodash": "^4.14.202",
-    "astro": "latest",
+    "astro": "v4.0.7",
     "autoprefixer": "^10.4.16",
     "sass": "^1.69.5",
     "svelte": "^4.2.8",
