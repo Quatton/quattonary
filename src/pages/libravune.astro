@@ -1,7 +1,5 @@
 ---
 import Layout from "src/layouts/Layout.astro";
-import Libravune from "@components/libravune/Libravune.vue";
-
 const res = await fetch("https://www.colr.org/json/colors/random/16");
 const json = await res.json();
 const books = json.colors;

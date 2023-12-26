@@ -19,7 +19,7 @@ module.exports = {
     },
   },
   plugins: [
-    plugin(function ({ addUtilities }) {
+    plugin(({ addUtilities }) => {
       addUtilities({
         ".no-scrollbar::-webkit-scrollbar": {
           display: "none",
