@@ -20,10 +20,11 @@
 
   const [bookShelf] = useAutoAnimate();
 
-  const capitalize = (string) =>
+  const capitalize = (string: string) =>
     string.charAt(0).toUpperCase() + string.slice(1);
+
   onMounted(() => {
-    console.log(books[0]);
+    console.log(books.value[0]);
     setTimeout(() => {
       mainSection.value.scrollIntoView();
     }, 2000);

@@ -26,10 +26,10 @@
     "@astrojs/react": "latest",
     "@astrojs/vercel": "^6.1.0",
     "@astrojs/vue": "^4.0.5",
-    "@formkit/auto-animate": "^1.0.0-beta.3",
+    "@formkit/auto-animate": "^0.8.1",
     "@iconify-prerendered/vue-mdi": "^0.23.1702456985",
     "@notionhq/client": "^2.2.14",
-    "astro-icon": "^0.8.2",
+    "astro-icon": "1.0.0-next.4",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "vue": "^3.3.13"
