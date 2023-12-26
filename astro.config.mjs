@@ -26,11 +26,6 @@ export default defineConfig({
     }),
   ],
   site: "https://quattonary.com",
-  vite: {
-    ssr: {
-      external: ["svgo"],
-    },
-  },
   output: "server",
   adapter: vercel(),
 });
