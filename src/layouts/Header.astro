@@ -1,25 +1,26 @@
 ---
 import { pages } from "src/utils/pages";
 import { Icon } from "astro-icon";
+import { getEntry } from "astro:content";
 
 export interface Props {
   path: string;
 }
 
 const { path } = Astro.props as Props;
-const page = pages.find((page) => page.path === path);
+const page = path ? await getEntry("front", path) : undefined
 ---
 
 <header class="w-full flex items-center px-4 py-4 h-16">
   <nav class="flex gap-4 items-center">
     <a class="home" href="/">Quattonary</a>
     {
-      page && (
+      page?.data && (
         <>
           <div class="h-6 border-l-2 border-l-slate-50" />
           <a class="page" href={`/${path}`}>
-            <Icon name={page.cover} color={page.color} />
-            {page.name}
+            <Icon name={page.data.cover} color={page.data.color} />
+            {page.data.name}
           </a>
         </>
       )
