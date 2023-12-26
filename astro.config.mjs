@@ -4,7 +4,7 @@ import svelte from "@astrojs/svelte";
 import mdx from "@astrojs/mdx";
 import vue from "@astrojs/vue";
 import vercel from "@astrojs/vercel/serverless";
-import icon from "astro-icon";
+// import icon from "astro-icon";
 
 export default defineConfig({
   integrations: [
@@ -12,20 +12,25 @@ export default defineConfig({
     svelte(),
     mdx(),
     vue(),
-    icon({
-      include: {
-        teenyicons: ["flag-solid"],
-        logos: ["astro", "flutter"],
-        noto: ["books", "party-popper"],
-      },
-    }),
+    // icon({
+    //   include: {
+    //     teenyicons: ["flag-solid"],
+    //     logos: ["astro", "flutter"],
+    //     noto: ["books", "party-popper"],
+    //     emojione: [
+    //       "flag-for-thailand",
+    //       "flag-for-united-states",
+    //       "flag-for-japan",
+    //     ],
+    //   },
+    // }),
   ],
   site: "https://quattonary.com",
-  // vite: {
-  //   ssr: {
-  //     external: ["svgo"],
-  //   },
-  // },
-  // output: "server",
-  // adapter: vercel(),
+  vite: {
+    ssr: {
+      external: ["svgo"],
+    },
+  },
+  output: "server",
+  adapter: vercel(),
 });
