@@ -1,8 +1,6 @@
 {
+  "extends": "astro/tsconfigs/base",
   "compilerOptions": {
-    "moduleResolution": "node",
-    "module": "ES2020",
-    "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"]
