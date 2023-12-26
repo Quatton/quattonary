@@ -3,11 +3,11 @@ import { pages } from "src/utils/pages";
 import { Icon } from "astro-icon";
 
 export interface Props {
-  slug: string;
+  path: string;
 }
 
-const { slug } = Astro.props as Props;
-const page = pages.find((page) => page.slug === slug);
+const { path } = Astro.props as Props;
+const page = pages.find((page) => page.path === path);
 ---
 
 <header class="w-full flex items-center px-4 py-4 h-16">
@@ -17,7 +17,7 @@ const page = pages.find((page) => page.slug === slug);
       page && (
         <>
           <div class="h-6 border-l-2 border-l-slate-50" />
-          <a class="page" href={`/${slug}`}>
+          <a class="page" href={`/${path}`}>
             <Icon name={page.cover} color={page.color} />
             {page.name}
           </a>

@@ -1,7 +1,7 @@
 ---
 import { getEntry } from "astro:content";
 import MarkdownLayout from "src/layouts/MarkdownLayout.astro";
-const tooSmall = await getEntry("front", "too-small");
+const tooSmall = await getEntry("front", "toosmall");
 const { Content, headings } = await tooSmall.render();
 ---
 
