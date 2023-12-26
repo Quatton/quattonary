@@ -17,7 +17,7 @@ import { pages } from "../utils/pages";
             <a
               href={page.slug.match(/^http/) ? `${page.slug}` : `/${page.slug}`}
             >
-              {page.cover && <Icon name={page.cover} color={page.color} />}
+              {page.cover}
               {page.name}
             </a>
           </article>

@@ -7,24 +7,7 @@ import vercel from "@astrojs/vercel/serverless";
 import icon from "astro-icon";
 
 export default defineConfig({
-  integrations: [
-    tailwind(),
-    svelte(),
-    mdx(),
-    vue(),
-    icon({
-      include: {
-        teenyicons: ["flag-solid"],
-        logos: ["astro", "flutter"],
-        emojione: [
-          "flag-for-thailand",
-          "flag-for-united-states",
-          "flag-for-japan",
-        ],
-        noto: ["books", "party-popper"],
-      },
-    }),
-  ],
+  integrations: [tailwind(), svelte(), mdx(), vue(), icon()],
   site: "https://quattonary.com",
   output: "server",
   adapter: vercel(),
