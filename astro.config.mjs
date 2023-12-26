@@ -14,18 +14,18 @@ export default defineConfig({
     vue(),
     icon({
       include: {
-        teenyicons: ["flag-solid"],
-        logos: ["astro", "flutter"],
-        noto: ["books", "party-popper"],
+        teenyicons: ["*"],
+        logos: ["*"],
+        noto: ["*"],
       },
     }),
   ],
   site: "https://quattonary.com",
-  // vite: {
-  //   ssr: {
-  //     external: ["svgo"],
-  //   },
-  // },
-  // output: "server",
-  // adapter: vercel(),
+  vite: {
+    ssr: {
+      external: ["svgo"],
+    },
+  },
+  output: "server",
+  adapter: vercel(),
 });

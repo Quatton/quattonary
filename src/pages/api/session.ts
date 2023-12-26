@@ -2,7 +2,7 @@ import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoint
 import type { APIRoute } from "astro";
 import { notion } from "src/utils/notion";
 
-export const POST: APIRoute = async ({ request, redirect, cookies }) => {
+export const POST: APIRoute = async ({ request, redirect }) => {
   const code = (await request.formData()).get("code");
 
   if (!code) return redirect("/", 303);
