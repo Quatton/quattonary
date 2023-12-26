@@ -4,6 +4,91 @@ name: "Memoiz"
 path: "memoiz"
 cover: "mdi:notebook"
 color: "#b91c1c"
+status: "discontinued"
 ---
 
 # Memoiz
+
+Memoiz is a simple note taking app that you can chat with.
+I teamed up with [ItzMeowww](https://github.com/ItzMeowww) to create this app.
+He was mainly responsible for the frontend, and I was mainly responsible for the backend.
+But it was Next.js, so in fact we each worked on both sides.
+
+It is one of the most ambitious and successful projects I've ever worked on.
+
+## What's special about Memoiz?
+
+It's really powerful and can perform basic deduction.
+For example, it can dive into your diary and find out why you had diarrhea yesterday.
+
+![Memoiz Feature](@images/front/memoiz/memoiz-feature.png)
+
+Unfortunately discontinued due to:
+
+1. Redis Cloud Enterprise credit doesn't scale to zero. We are not sure if we can afford it after the credits run out.
+2. Chat with database has been oversaturated in late 2023.
+3. We weren't ready to scale this project into a profitable business. We had no moat.
+
+## Technologies
+
+![Memoiz Tech Stack](@images/front/memoiz/how-it-works.png)
+
+- Next.js -- Courtesy of [T3 Stack](https://github.com/t3-oss/create-t3-app)
+
+  - Tailwind CSS
+  - TypeScript
+  - React
+  - Vercel
+  - Prisma
+  - tRPC
+  - NextAuth.js
+
+- PlanetScale (MySQL)
+- Redis
+- [Cohere](https://cohere.com) (Embedding, Generation)
+
+## How far did we get?
+
+We managed to win the [Build your AI Startup Hackathon: Episode 2](https://lablab.ai/event/ai-startup-hackathon-episode-2/we-absolutely-have-no-idea/memoiz)
+and got $5000 in cash and a place in the [Slingshot](https://slingshot.newnative.ai/) accelerator program.
+That's huge, and it was one of the biggest achievements in my life. After working for 3 months with Slingshot, we decided to discontinue the project.
+It was really unfortunate, but we had to make this decision.
+
+## What did we learn?
+
+While it is obvious that we learned a lot about the technologies we used, the more important lesson was about building a startup.
+
+Building a startup is **hard**. I admitted it. It's not just about coding. It's product management on top of coding.
+And it's not just about product management. It's also about marketing, sales, recruiting, and you name it.
+It's a lot of work, and it's not easy to do it alone. Well, or even with a partner.
+
+### Clear Vision Is Important
+
+First rookie mistake we made was that we didn't have a clear vision of what we were building. We just thought:
+
+> Hey, what if we need end-to-end encryption for keeping our notes private?
+
+And we started building it. We didn't even know if there was a market for it. We didn't know if people would pay for it. We didn't know if people would even need end-to-end encryption.
+
+### Shiny Object Syndrome
+
+Second, **Shiny Object Syndrome**. We were so excited about the technologies we used that we forgot to focus on the product. Next.js was releasing App Router as stable, and we were like "Hey, let's migrate it".
+It took us a whole week to migrate it, and we needed to rewrite a lot of code. And it didn't even work well as we expected. tRPC didn't work. NextAuth.js didn't work. We had to spend another week to fix it.
+Next, we introduced [Shadcn's UI](https://ui.shadcn.com) to our project. It was a great UI "library" built on top of Radix and Tailwind CSS. It was great, but was it worth all the time we spent on it? Probably not.
+
+## Just Ship It
+
+Last, we invested too much time into the project.
+
+> Wait, but isn't that a good thing?
+
+Well, when something is _too much_ it's not.
+
+- We spent 3 months on the project, and we didn't even have a working product.
+- We had zero customers. We should have shipped it earlier and got feedback from the market. We should have talked to our potential customers and asked them if they would pay for it.
+- We should have done a lot of things, but we didn't.
+
+> We were too focused on the product, and we forgot about the market.
+
+And then what? Burnout. It's not illogical to get burnout after working on a project for 3 months, earning exactly $0.00. We were so tired of working on the project that we decided to discontinue it.
+**Don't ever do this.** Also, if you discontinue a project, it's much much harder to get back to it. Take some short breaks, it's easier to get back to it.

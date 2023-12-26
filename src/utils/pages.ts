@@ -7,6 +7,7 @@ export const pageSchema = z.object({
   path: z.string(),
   name: z.string(),
   color: z.string().optional(),
+  status: z.enum(["discontinued", "active"]).optional(),
 });
 
 export const pages: z.infer<typeof pageSchema>[] = Array.from(

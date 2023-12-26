@@ -31,6 +31,7 @@
     "@astrojs/vercel": "^6.1.0",
     "astro": "v4.0.7",
     "astro-icon": "^0.8.2",
+    "sharp": "^0.33.1",
     "typescript": "^5.3.3"
   }
 }
