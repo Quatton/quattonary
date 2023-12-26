@@ -1,10 +1,10 @@
 import { Client } from "@notionhq/client";
-import {
-  PageObjectResponse,
-  RichTextItemResponse,
+import type {
+	PageObjectResponse,
+	RichTextItemResponse,
 } from "node_modules/@notionhq/client/build/src/api-endpoints";
 
 // Initializing a client
 export const notion = new Client({
-  auth: import.meta.env.NOTION_SECRET,
+	auth: import.meta.env.NOTION_SECRET,
 });
