@@ -10,7 +10,7 @@
     "astro": "astro",
     "lint": "bunx @biomejs/biome lint src",
     "format": "bunx @biomejs/biome format src --apply",
-    "check": "bunx @biomejs/biome check src"
+    "check": "astro check"
   },
   "devDependencies": {
     "@biomejs/biome": "1.4.1",
