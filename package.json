@@ -4,12 +4,12 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
     "sync": "astro sync",
     "astro": "astro",
-    "lint": "bunx @biomejs/biome lint src",
-    "format": "bunx @biomejs/biome format src --apply",
+    "lint": "@biomejs/biome lint src",
+    "format": "@biomejs/biome format src --apply",
     "check": "astro check"
   },
   "devDependencies": {
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@astro-community/astro-embed-youtube": "^0.4.3",
+    "@astrojs/check": "^0.3.4",
     "@astrojs/mdx": "^2.0.2",
     "@astrojs/react": "latest",
     "@astrojs/svelte": "^5.0.2",

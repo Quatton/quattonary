@@ -19,7 +19,7 @@ const page = path ? await getEntry("front", path) : undefined
         <>
           <div class="h-6 border-l-2 border-l-slate-50" />
           <a class="page" href={`/${path}`}>
-            <Icon name={page.data.cover} color={page.data.color} />
+            {page.data.cover && <Icon name={page.data.cover} color={page.data.color} />}
             {page.data.name}
           </a>
         </>
