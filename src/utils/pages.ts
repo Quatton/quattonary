@@ -8,6 +8,7 @@ export const pageSchema = z.object({
   name: z.string(),
   color: z.string().optional(),
   status: z.enum(["discontinued", "active"]).optional(),
+  github: z.string().url().optional(),
 });
 
 export const pages: z.infer<typeof pageSchema>[] = Array.from(

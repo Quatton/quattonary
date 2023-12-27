@@ -1,0 +1,17 @@
+---
+import { getEntry } from 'astro:content'
+import { getCollection } from 'astro:content'
+
+
+export interface Props {
+  id: Awaited<ReturnType<typeof getCollection<"people">>>[number]["id"]
+}
+
+const { id } = Astro.props;
+
+const { data: {linkedin, name} } = await getEntry("people", id);
+---
+
+<a href={linkedin}>
+  {name}
+</a>

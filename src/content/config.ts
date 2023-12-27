@@ -6,6 +6,15 @@ const frontPages = defineCollection({
   schema: pageSchema,
 });
 
+const people = defineCollection({
+  type: "data",
+  schema: z.object({
+    name: z.string(),
+    linkedin: z.string().url(),
+  }),
+});
+
 export const collections = {
   front: frontPages,
+  people,
 };
