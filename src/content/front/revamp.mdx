@@ -1,0 +1,55 @@
+---
+id: 4
+name: Revamp
+path: revamp
+cover: noto:sparkles
+status: discontinued
+github: Quatton/revamp
+---
+
+# Revamp
+
+Revamp is actually a troll project I made for [Cohere Coral Hackathon](https://lablab.ai/event/cohere-coral-hackathon).
+It is built on top of the slogan: "Ideas are cheap, Steal them", basically a competitor analysis tool that will scrape real-world data from your competitors and give you insights about their business.
+
+Sadly, Cohere disabled the API so I couldn't run it anymore.
+
+> Note to self: until this point I had many projects killed because the API is no longer available. It'd be great to have some library, oss project that can stand on its own without relying on external APIs.
+
+## Technology
+
+- Next.js
+  - Daisy UI
+- [Cohere Coral](https://coral.cohere.com/)
+- Supabase
+
+## What did I learn?
+
+### Streaming AI generated text from Supabase
+
+I finally got better with Stream in JavaScript ecosystem. It was really confusing when I building [Callem](/callem), but now I can do it with ease.
+Here I take the text generated from Cohere Coral, and stream the updates asynchronously to the Supabase via an RPC. This RPC will compare the new text with the old one, and only update if it's longer.
+
+This enabled users to just leave the page and let the generation take place in the background.
+Really cool stuff here.
+
+### Large-scale prompt engineering
+
+I had to do multi-step AI generation, because Cohere context window is limited. So I had to break down the pipeline into
+
+0. Input
+1. 4 P's of Marketing
+2. SWOT Analysis
+3. Business Idea Generation
+
+Each prompt was inspired by [Dan Kulkov](https://x.com/dankulkov)'s free ChatGPT mega prompts. I had to do some work on formatting the markdown table, but I had to admit the prompt alone was really powerful.
+
+### Building something with a clear goal
+
+I learned my lesson from [Memoiz](/memoiz) and [Creeks](/creeks), now I first started with a target audience and a rough product idea.
+It was much more inspiring to build something you know there is a market for it, and you see the ins-and-outs of the product.
+
+I also learned that I should build something that will become **a compound interest**. Something that I will use myself to build more great products.
+Here, I used Revamp to improve itself by finding more competitors that deal with the same problem and target audience of entrepreneurs who are looking for business ideas and trying to validate them in a new market.
+
+If possible, I want to build it with my own query connector, so that it doesn't depend on Cohere Coral.

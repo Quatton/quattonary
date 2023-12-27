@@ -1,0 +1,62 @@
+---
+id: 10
+name: Creeks
+path: creeks
+cover: noto:national-park
+status: discontinued
+github: Quatton/creeks
+---
+
+# Creeks
+
+It was the first project that I had a great framework to start with. This project was a submission to the [Buildspace S4](https://buildspace.so/) where I learned to iterate the project with the community.
+
+Creeks will always have a special place in my heart. It was the first project that my mom really loves and uses. Sadly, I just abruptly discontinued it.
+
+Creeks is a brainstorm board, a hybrid between voice and text. You can just keep your thoughts flow like a creek, and it will compile your thoughts into a readable format.
+Moreever, you can also use Creeks to derive a Mermaid diagram from your thoughts.
+
+## Technologies
+
+- SvelteKit
+  - TipTap
+  - Skeleton UI
+  - Mermaid
+- OpenAI Whisper & GPT-3.5-Turbo
+- Supabase
+
+## What I learned
+
+### Just keep iterating it.
+
+Buildspace had thought me a simple framework to iterate on the project.
+
+1. Define your audience
+2. Build a toy
+3. Get people to play with your toy and ask for feedback
+4. Iterate on the feedback
+5. Spread the word to more channels and repeat
+
+It is intended to be aggressive, yet minimal, allowing you keep the mindset forever.
+I love the Buildspace team and community. The event turned out very well, and I will surely join the next one.
+
+### Building local-first app
+
+Because I didn't use Supabase as a database, I intended to let users save their notes in the browser.
+It was intuitive at first, because this is exactly how Firebase Realtime works: JSON everywhere. However, it's only when I tried to sync the notes from local to server, I realized that it's not that easy.
+
+I decided to just not allow server -> local sync, and only allow local -> server sync. It's a bit of a bummer, but it's a good tradeoff for the sake of simplicity.
+I also made it so that the shared notes have to be synced manually.
+
+I wish I was more capable to make it more technically robust but well, it's been a great project after all.
+
+### Hybrid voice recording
+
+I believe I am one of the first people to build a hybrid voice recording app that syncs with text chronologically. I am very proud of this feature, because the implementation is not trivial.
+Also, this also allows me to chunk up the voice recording into smaller pieces, which is very useful for parallel transcription by OpenAI Whisper.
+
+One more thing is that the transcriptions are also transformed into mindmaps built on top of Mermaid. This is also a very cool feature that I am proud of. It also has features like branching and suggesting a thought-provoking question.
+
+> my mom loves this feature because she doesn't have to type and can just draw her thoughts out into a mindmap
+
+It has too much potential I couldn't just kill it. I will definitely come back to this project in the future and make it better.

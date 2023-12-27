@@ -1,0 +1,61 @@
+---
+id: 2
+path: "callem"
+name: "Callem"
+cover: noto:telephone
+status: discontinued
+github: Quatton/callem
+---
+
+## Callem
+
+Don't wanna make a call yourself? Clone your voice with [ElevenLabs](https://elevenlabs.io/) and Call'em.
+
+Callem was a submission made to [ElevenLabs AI Hackathon](https://lablab.ai/event/eleven-labs-ai-hackathon) and it has one of the most _interesting_ techstack I have ever used.
+This project had a birght future ahead of it, because customer service via voice is still in demand and could've been made cheaper with more availability.
+
+Unfortunately, I ran out of ElevenLabs credits and it was quite costly to make international phone calls so I had to discontinue it.
+
+There are a few people who contacted me to talk about the project, to which I accidentally ghosted because I missed the meeting _TWICE_. Hey, Tony if you're reading this, I'm sorry.
+Feel free to contact me again.
+
+## Technology
+
+- Bun
+- [Elysia](https://elysiajs.com/)
+- Turso DB (SQLite) + DrizzleORM
+- HTMX
+- [ElevenLabs](https://elevenlabs.io/) API
+- [OpenAI](https://openai.com/) GPT-3.5-Turbo
+
+> Elysia? HTMX? For real? Hell yeah, I hosted it on [Fly.io](https://fly.io) and it was a blast. I'm really satisfied with the results.
+
+Before getting to the reflection, I'd like to talk about my techstack choices. I wanted to try something unique, **really** unique.
+I heard HTMX had been gaining traction and I wanted to try it out. I also wanted to try out Bun, a relatively (at the time) new JavaScript runtime, bundler, and package manager, so I guess Elysia would be one of the best choices.
+It also had a built-in JWT, Type Validation, and Web Socket support, which was a huge plus.
+
+## What did I learn?
+
+### International Phone Calls are expensive
+
+> Wait, so toll-free is not free?
+
+The Twilio API was $20 over the 3 days of the hackathon; however, my phone call bill was $100. I was not expecting that.
+Sooooo, make sure you know ins-and-outs of the technology you're using.
+
+### Streaming Audio
+
+ElevenLabs serves the audio in streams, which was a bit of a challenge to pipe that to TwiML. I tried to use WebSocket but it was really difficult to get it to work, mainly because the audio Twilio accepts in WebSocket is not what ElevenLabs serves.
+The main issue was that most audio conversion libraries were not compatible with Bun. Unfortunately, I had to stick to the approach of just serving audio files.
+First I downloaded the entire `.mp3` and then built a route handler to server a static file. It was a bit slow, so instead I ended up with returning the entire response stream I got from ElevenLabs.
+Well, it worked, so I didn't dare to touch it.
+
+### 502 Bad Gateway
+
+One annoying thing about Fly.io is that it mysteriously returns 502 Bad Gateway. I'm not sure why, but it was really annoying.
+Because it would happen to some but not all routes, sometimes the call would go through one layer, and then fail at another layer.
+
+**THAT COSTED ME A LOT OF MONEY WHICH SHOULDN'T HAVE BEEN SPENT.**
+
+Anyway, I still don't know why it happened, but my solution was to warm up the server by sending some Insomnia requests before making the actual call.
+This is one of the reason why I discontinued the project. I should use a more stable technology.
