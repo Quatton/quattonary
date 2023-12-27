@@ -39,9 +39,9 @@ const { Content } = await thatPage.render();
     }
     {
       thatPage.data.github &&
-      <a href={thatPage.data.github} class="rounded-md bg-neutral-800 w-min px-2 py-1 flex items-center gap-1 mb-2">
+      <a href={`https://github.com/${thatPage.data.github}`} class="rounded-md bg-neutral-800 px-2 py-1 flex items-center gap-1 mb-2">
         <Icon name="mdi:github" class="w-5 h-5" />
-        {thatPage.data.github.replace("https://github.com/", "")}
+        {thatPage.data.github}
       </a>
     }
   </div>
