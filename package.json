@@ -6,6 +6,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "sync": "astro sync",
     "astro": "astro",
     "lint": "bunx @biomejs/biome lint src",
     "format": "bunx @biomejs/biome format src --apply",

@@ -34,7 +34,7 @@ collections.forEach((collection) => {
               href={page.path.match(/^http/) ? `${page.path}` : `/${page.path}`}
             >
               {page.cover && <Icon name={page.cover} color={page.color} />}
-              {page.name}
+              <span class="z-10">{page.name}</span>
             </a>
           </article>
         ))

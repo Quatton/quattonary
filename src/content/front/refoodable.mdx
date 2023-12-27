@@ -5,9 +5,11 @@ path: refoodable
 cover: logos:flutter
 status: discontinued
 github: supawichable/ReFoodable
+month: "2022-02 ~ 2022-03"
 ---
 
 import Person from "@components/person.astro";
+import { YouTube } from "@astro-community/astro-embed-youtube";
 
 # ReFoodable
 
@@ -17,3 +19,74 @@ This project is submitted to the [GDSC Solution Challenge 2023](https://develope
 
 I teamed up with <Person id="natprawee"/>, <Person id="supawich" />, and <Person id="tetus" /> to create this project.
 We were all from the same high school, and we were relatively new to Flutter.
+
+> Here is our presentation video for the challenge.
+
+<YouTube id="https://youtu.be/UtVPyPvjBGY?si=D_ACtOnPCX9NbO2_" />
+
+## Technologies
+
+- Flutter
+  - Riverpod
+  - Freezed & JsonSerializable
+  - AutoRoute
+  - RxDart
+- Firebase
+- Google Maps & Places API
+
+## What I learned
+
+### Flutter State Management
+
+The API is similar to React, with an additional `const` to mark a component as immutable. `const` in Dart was really weird, especially when you use it with class, but I got the hang of it.
+At first it was really fun to optimize `StatelessWidget` part and `StatefulWidget` part.
+
+Well, until I noticed how unmaintainable the code can be when you have to pass the "reference" of a state down the widget tree.
+I used `Provider` before so I realized how much better `Riverpod` is. The API is much more intuitive, similar to that of Svelte's store, but with more features on `Future` and `Stream`.
+
+To be honest, I have to admit I overly use it to the point where it was really hard to refactor, and generated a giant merge conflict during the last days of the challenge. Phew.
+
+### Dart's Type Safety Is Really Good
+
+We all know that Dart is a statically typed language, and as a TypeScript advocate, I volunteered to handle the data model.
+`@freezed` decorator is for hanling serialization `fromJson` and `toJson` for you, among other constructors, `toString`, `copyWith`, and `==` operator.
+At was I was skeptical because I was not a big fan of code generation, but it turned out to be _fine_ for me.
+
+One thing I really really like about Dart is `extension`. Well, it's like TypeScript interface, but here you can add methods to existing classes. (!?)
+Here I used it to parse Firebase type to add more type safety in both query and mutation.
+
+````dart
+extension FirestoreX on FirebaseFirestore {
+  /// Get a reference to a stores collection
+  /// which can be used to query the stores.
+  ///
+  /// Example:
+  /// ```dart
+  /// final storesRef = FirebaseFirestore.instance.stores;
+  /// final snapshots = await storesRef.get();
+  /// final stores = snapshots.docs.map((e) => e.data()).toList();
+  /// ```
+  CollectionReference<Store> get stores =>
+      collection(ApiPath.stores).withConverter(
+          fromFirestore: (snapshot, _) => Store.fromFirestore(snapshot),
+          toFirestore: (store, _) => store.toFirestore());
+}
+````
+
+Here I just added a `stores` getter to `FirebaseFirestore` class, which automatically attaches a converter to the collection reference.
+It's **INSANE** how you could just use `FirebaseFirestore` normally with the extended method.
+
+### Dealing with GitHub as a Team
+
+Because for the past 3 years of software development, I was just yolo pushing to master. I was not use d to the concept of branching and pull request.
+Well, branching & pull request itself is simple, but fixing merge conflict is _pain_.
+
+You need to separate files into components, and each of the team member should work on different components.
+Usually when a merge conflict happens, it is most likely that we can just use the latest version of the file.
+However, what happened to us was not the case.
+
+2 of us worked on the same story without knowing it, because one was working from mocking the UI and the other was working from the data fetching.
+Now we had 2 files that were completely different. And guess what? The one who handled the merge conflict was a third person who was not involved in the story, which unknowingly deleted the duplicate code.
+We had to reconcile the code manually, and it was a pain.
+
+Yeah, I hate Jira.
