@@ -3,13 +3,13 @@ import Layout from "src/layouts/Layout.astro";
 
 export interface Props {
   title: string;
-  slug?: string;
+  path?: string;
 }
 
-const { title = "Quattonary", slug } = Astro.props as Props;
+const { title = "Quattonary", path } = Astro.props as Props;
 ---
 
-<Layout {...{title, slug}}>
+<Layout {...{title, path}}>
   <section>
     <article>
       <slot />

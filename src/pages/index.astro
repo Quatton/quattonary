@@ -1,7 +1,23 @@
 ---
-import { Icon } from "astro-icon/components";
+import { Icon } from "astro-icon";
 import Layout from "../layouts/Layout.astro";
-import { pages } from "../utils/pages";
+import { pages as _pages } from "../utils/pages";
+import { getCollection } from "astro:content";
+
+const collections = await getCollection("front");
+const pages = structuredClone(_pages);
+collections.forEach((collection) => {
+  if (collection.data.id >= 0) {
+    pages[collection.data.id] = collection.data;
+  }
+
+  if (collection.data.ids) {
+    collection.data.ids.forEach((id) => {
+      pages[id] = { ...collection.data, id };
+    });
+  }
+  
+});
 ---
 
 <Layout title="Quattonary">
@@ -15,10 +31,10 @@ import { pages } from "../utils/pages";
             }}
           >
             <a
-              href={page.slug.match(/^http/) ? `${page.slug}` : `/${page.slug}`}
+              href={page.path.match(/^http/) ? `${page.path}` : `/${page.path}`}
             >
-              {page.cover}
-              {page.name}
+              {page.cover && <Icon name={page.cover} color={page.color} />}
+              <span class="z-10">{page.name}</span>
             </a>
           </article>
         ))

@@ -4,8 +4,8 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"]
-    },
-    "types": ["bun-types"]
+      "@components/*": ["src/components/*"],
+      "@images/*": ["src/images/*"]
+    }
   }
 }
