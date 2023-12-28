@@ -23,27 +23,27 @@ const { Content } = await thatPage.render();
 ---
 
 <MarkdownLayout title={thatPage.data.name} path={thatPage.data.path}>
-  <div class="flex gap-2">
+  <section class="flex gap-2 mb-2">
     {thatPage.data.status === "discontinued" &&
-      <div class="rounded-md bg-neutral-800 px-2 py-1 flex items-center gap-1 mb-2">
+      <div class="rounded-md bg-neutral-800 px-2 py-1 flex items-center gap-1">
         <span class="rounded-full bg-neutral-500 p-1.5"></span>
         Discontinued
       </div>
     }
     {
       thatPage.data.status === "active" &&
-      <div class="rounded-md bg-neutral-800 px-2 py-1 flex items-center gap-1 mb-2">
+      <div class="rounded-md bg-neutral-800 px-2 py-1 flex items-center gap-1">
         <span class="rounded-full bg-green-500 p-1.5"></span>
         Active
       </div>
     }
     {
       thatPage.data.github &&
-      <a href={`https://github.com/${thatPage.data.github}`} class="rounded-md bg-neutral-800 px-2 py-1 flex items-center gap-1 mb-2">
+      <a href={`https://github.com/${thatPage.data.github}`} class="rounded-md bg-neutral-800 px-2 py-1 flex items-center gap-1">
         <Icon name="mdi:github" class="w-5 h-5" />
         {thatPage.data.github}
       </a>
     }
-  </div>
+  </section>
   <Content />
 </MarkdownLayout>
