@@ -19,6 +19,8 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.date(),
+    cover: z.string().optional(),
+    color: z.string().optional(),
   }),
 });
 

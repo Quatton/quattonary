@@ -22,7 +22,7 @@ const thatPage = await getEntry("front", slug);
 const { Content } = await thatPage.render();
 ---
 
-<MarkdownLayout title={thatPage.data.name} path={thatPage.data.path}>
+<MarkdownLayout title={thatPage.data.title} path={thatPage.data.path}>
   <section class="flex gap-2 mb-2">
     {thatPage.data.status === "discontinued" &&
       <div class="rounded-md bg-neutral-800 px-2 py-1 flex items-center gap-1">

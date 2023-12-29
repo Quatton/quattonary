@@ -1,14 +1,15 @@
 ---
 import { pages } from "src/utils/pages";
 import { Icon } from "astro-icon";
-import { getEntry } from "astro:content";
+import { getEntry, type CollectionKey, type ContentCollectionKey } from "astro:content";
 
 export interface Props {
   path: string;
+  collection?: ContentCollectionKey;
 }
 
-const { path } = Astro.props as Props;
-const page = path ? await getEntry("front", path) : undefined
+const { path, collection = "front" } = Astro.props as Props;
+const page = path ? await getEntry(collection, path) : undefined
 ---
 
 <header class="w-full flex items-center px-4 py-4 h-16">
@@ -20,7 +21,7 @@ const page = path ? await getEntry("front", path) : undefined
           <div class="h-6 border-l-2 border-l-slate-50" />
           <a class="page" href={`/${path}`}>
             {page.data.cover && <Icon name={page.data.cover} color={page.data.color} />}
-            {page.data.name}
+            {page.data.title}
           </a>
         </>
       )

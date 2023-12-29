@@ -13,7 +13,7 @@ const { Content } = await blogPreface.render();
 const blogPosts = (await getCollection("blog")).toSorted((a, b) => b.data.date.getTime() - a.data.date.getTime())
 ---
 
-<MarkdownLayout title={blogPreface.data.name} path={blogPreface.data.path}>
+<MarkdownLayout title={blogPreface.data.title} path={blogPreface.data.path}>
   <Content />
   <div class="grid grid-cols-3 gap-4 not-prose">
     {
