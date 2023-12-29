@@ -23,7 +23,7 @@ const thatPage = await getEntry("blog", `${blog_id}/${page}` as const);
 const body = thatPage.body;
 ---
 
-<MarkdownLayout title={thatPage.data.title} path={thatPage.slug}>
+<MarkdownLayout title={thatPage.data.title} path={thatPage.slug} collection="blog">
   {body}
 </MarkdownLayout>
 

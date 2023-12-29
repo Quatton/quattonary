@@ -10,7 +10,9 @@ import { formatDate } from 'src/utils/date';
 const blogPreface = await getEntry("front", "blog");
 const { Content } = await blogPreface.render();
 
-const blogPosts = (await getCollection("blog")).toSorted((a, b) => b.data.date.getTime() - a.data.date.getTime())
+const blogPosts = (await getCollection("blog"))
+                    .filter((blog) => blog.slug.split("/")[1] === "1")
+                    .toSorted((a, b) => b.data.date.getTime() - a.data.date.getTime())
 ---
 
 <MarkdownLayout title={blogPreface.data.title} path={blogPreface.data.path}>
