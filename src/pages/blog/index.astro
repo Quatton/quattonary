@@ -20,7 +20,7 @@ const blogPosts = (await getCollection("blog")).toSorted((a, b) => b.data.date.g
       blogPosts.map((blog) => {
         return (
           
-        <a href={blog.slug} class="rounded-md aspect-square shadow-neutral-800 shadow-md transition-all overflow-visible">
+        <a href={`/blog/${blog.slug}`} class="rounded-md aspect-square shadow-neutral-800 shadow-md transition-all overflow-visible">
           <div class="grid-rows-[1fr_auto] origin-left transition-all w-full h-full grid grid-[1fr_auto] place-items-center place-content-center bg-neutral-900 rounded-md p-4">
             <h2 class="font-bold text-2xl text-balance">{blog.data.title}</h2>
             <p class="flex items-center gap-2">

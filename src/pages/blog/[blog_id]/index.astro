@@ -1,0 +1,26 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const collections = await getCollection("blog")
+  return collections.map(({ slug }) => {
+    return {
+      params: {
+        blog_id: slug
+      }
+    }
+  })
+}
+
+const { blog_id } = Astro.params;
+import MarkdownLayout from "src/layouts/MarkdownLayout.astro";
+const thatPage = await getEntry("blog", blog_id);
+const body = thatPage.body
+---
+
+
+<MarkdownLayout title={thatPage.data.title} path={thatPage.slug}>
+  {body}
+</MarkdownLayout>
+
