@@ -1,5 +1,5 @@
 import { defineCollection, z } from "astro:content";
-import { pageSchema } from "src/utils/pages";
+import { pageSchema } from "src/lib/pages";
 
 const frontPages = defineCollection({
   type: "content",
