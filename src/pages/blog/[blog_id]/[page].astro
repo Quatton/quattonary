@@ -1,7 +1,7 @@
 ---
 import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 
-import MarkdownLayout from "src/layouts/MarkdownLayout.astro";
+import BlogLayout from "src/layouts/BlogLayout.astro";
 import type { Split } from 'src/utils/types';
 export const prerender = true;
 
@@ -19,11 +19,39 @@ export async function getStaticPaths() {
 }
 
 const { blog_id, page } = Astro.params;
-const thatPage = await getEntry("blog", `${blog_id}/${page}` as const);
-const body = thatPage.body;
+
+const pageNum = parseInt(page, 10);
+
+const thatPage = await getEntry("blog", `${blog_id}/${page}`);
+
+const leftNum = pageNum % 2 === 0 ? pageNum - 1 : pageNum
+const left = `${leftNum}`;
+const right = `${leftNum + 1}`;
+
+const leftPage = await getEntry("blog", `${blog_id}/${left}`);
+const rightPage = await getEntry("blog", `${blog_id}/${right}`);
+const nextPage = await getEntry("blog", `${blog_id}/${leftNum + 2}`);
+
+const { Content: LeftContent } = (await leftPage?.render()) ?? {};
+const { Content: RightContent } = (await rightPage?.render()) ?? {};
+
 ---
 
-<MarkdownLayout title={thatPage.data.title} path={thatPage.slug} collection="blog">
-  {body}
-</MarkdownLayout>
+<BlogLayout title={thatPage.data.title} path={thatPage.slug} collection="blog">
+  <div class="grid grid-cols-[auto,auto,auto] min-h-full place-content-center">
+    <a href={leftNum - 2 >= 1 ? `/blog/${blog_id}/${leftNum - 2}` : "#"} class="w-12 bg-gradient-to-l hover:from-amber-200/50 to-amber-200/0 hover:blur-sm transition-all">
+    </a>
+    <section class="grid md:grid-cols-2 mx-auto max-w-[48rem]">
+      <article class="max-h-96 min-h-72 p-4 aspect-square prose prose-sm prose-invert rounded-lg bg-neutral-900">{LeftContent && <LeftContent />}</article>
+      <article class="max-h-96 min-h-72 p-4 aspect-square prose prose-sm prose-invert rounded-lg bg-neutral-900">{RightContent && <RightContent />}</article>
+    </section>
+    <a href={!!nextPage ? `/blog/${blog_id}/${leftNum + 2}` : "#"} class="w-12 bg-gradient-to-r hover:from-amber-200/50 to-amber-200/0 hover:blur-sm transition-all">
+    </a> 
+  </div>
+</BlogLayout>
 
+<style is:global>
+  main {
+    @apply px-8;
+  }
+</style>
