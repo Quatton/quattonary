@@ -1,15 +1,24 @@
 ---
-import { pages } from "src/utils/pages";
 import { Icon } from "astro-icon";
-import { getEntry, type CollectionKey, type ContentCollectionKey } from "astro:content";
+import { getEntry, type CollectionKey, type DataCollectionKey, type ContentCollectionKey } from "astro:content";
+import { isDataCollection } from "src/utils/type-guard";
 
 export interface Props {
   path: string;
-  collection?: ContentCollectionKey;
+  collection?: ContentCollectionKey | DataCollectionKey;
 }
 
-const { path, collection = "front" } = Astro.props as Props;
-const page = path ? await getEntry(collection, path) : undefined
+
+const { path, collection = "front"} = Astro.props as Props;
+const page = path ? 
+  collection === "blogMeta" ? 
+    await getEntry(collection, path) : 
+  collection === "front" ?
+    await getEntry(collection, path) :
+    undefined :
+  undefined;
+
+  // most stupid typescript error ever
 ---
 
 <header class="w-full flex items-center px-4 py-4 h-16">
@@ -19,7 +28,7 @@ const page = path ? await getEntry(collection, path) : undefined
       page?.data && (
         <>
           <div class="h-6 border-l-2 border-l-slate-50" />
-          <a class="page" href={`/${collection === "front" ? "" : `${collection}/`}${path}`}>
+          <a class="page" href={`/${collection === "front" ? "" : `blog/`}${path}`}>
             {page.data.cover && <Icon name={page.data.cover} color={page.data.color} />}
             {page.data.title}
           </a>

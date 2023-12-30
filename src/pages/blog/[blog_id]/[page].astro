@@ -21,31 +21,29 @@ export async function getStaticPaths() {
 const { blog_id, page } = Astro.params;
 
 const pageNum = parseInt(page, 10);
+const pageMeta = await getEntry("blogMeta", blog_id);
 
 const thatPage = await getEntry("blog", `${blog_id}/${page}`);
+const otherPage = await getEntry("blog", `${blog_id}/${pageNum % 2 === 0 ? pageNum - 1 : pageNum + 1}`);
 
 const leftNum = pageNum % 2 === 0 ? pageNum - 1 : pageNum
-const left = `${leftNum}`;
-const right = `${leftNum + 1}`;
-
-const leftPage = await getEntry("blog", `${blog_id}/${left}`);
-const rightPage = await getEntry("blog", `${blog_id}/${right}`);
-const nextPage = await getEntry("blog", `${blog_id}/${leftNum + 2}`);
+const leftPage = pageNum % 2 === 0 ? otherPage : thatPage;
+const rightPage = pageNum % 2 === 0 ? thatPage : otherPage;
 
 const { Content: LeftContent } = (await leftPage?.render()) ?? {};
 const { Content: RightContent } = (await rightPage?.render()) ?? {};
-
+const hasNextPage = leftNum + 2 < pageMeta.data.maxPages;
 ---
 
-<BlogLayout title={thatPage.data.title} path={thatPage.slug} collection="blog">
+<BlogLayout title={pageMeta.data.title} path={thatPage.slug} collection="blogMeta">
   <div class="grid grid-cols-[auto,auto,auto] min-h-full place-content-center">
-    <a href={leftNum - 2 >= 1 ? `/blog/${blog_id}/${leftNum - 2}` : "#"} class="w-12 bg-gradient-to-l hover:from-amber-200/50 to-amber-200/0 hover:blur-sm transition-all">
+    <a href={leftNum - 2 >= 1 ? `/blog/${blog_id}/${leftNum - 2}` : "#"} class="w-12 bg-gradient-to-l from-amber-200/10 hover:from-amber-200/50 to-amber-200/0 transition-all">
     </a>
     <section class="grid md:grid-cols-2 mx-auto max-w-[48rem]">
       <article class="max-h-96 min-h-72 p-4 aspect-square prose prose-sm prose-invert rounded-lg bg-neutral-900">{LeftContent && <LeftContent />}</article>
       <article class="max-h-96 min-h-72 p-4 aspect-square prose prose-sm prose-invert rounded-lg bg-neutral-900">{RightContent && <RightContent />}</article>
     </section>
-    <a href={!!nextPage ? `/blog/${blog_id}/${leftNum + 2}` : "#"} class="w-12 bg-gradient-to-r hover:from-amber-200/50 to-amber-200/0 hover:blur-sm transition-all">
+    <a href={hasNextPage ? `/blog/${blog_id}/${leftNum + 2}` : "#"} class="w-12 bg-gradient-to-r from-amber-200/10 hover:from-amber-200/50 to-amber-200/0 transition-all">
     </a> 
   </div>
 </BlogLayout>

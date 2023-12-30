@@ -1,11 +1,11 @@
 ---
+import type { CollectionKey } from "astro:content";
 import { ViewTransitions } from "astro:transitions";
 import Header from "./Header.astro";
-import type { ContentCollectionKey } from "astro:content";
 export interface Props {
   title: string;
   path?: string;
-  collection?: ContentCollectionKey
+  collection?: CollectionKey
 }
 
 const { title, path = "", collection } = Astro.props as Props;

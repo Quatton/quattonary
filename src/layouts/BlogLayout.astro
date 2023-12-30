@@ -1,11 +1,11 @@
 ---
-import type { ContentCollectionKey } from "astro:content";
+import type { CollectionKey, ContentCollectionKey } from "astro:content";
 import Layout from "src/layouts/Layout.astro";
 
 export interface Props {
   title: string;
   path?: string;
-  collection?: ContentCollectionKey
+  collection?: CollectionKey
 }
 
 const { title = "Quattonary", path, collection } = Astro.props as Props;
