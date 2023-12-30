@@ -3,9 +3,17 @@ import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import vercel from "@astrojs/vercel/serverless";
 // import icon from "astro-icon";
+import solidJs from "@astrojs/solid-js";
 
+// https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), mdx()],
+  integrations: [
+    tailwind(),
+    mdx(),
+    solidJs({
+      include: ["**/solid/*"],
+    }),
+  ],
   site: "https://quattonary.com",
   vite: {
     ssr: {

@@ -19,15 +19,19 @@ const blog = defineCollection({
   schema: z.object({}),
 });
 
+export const blogMetaSchema = z.object({
+  title: z.string(),
+  date: z.date(),
+  cover: z.string().optional(),
+  color: z.string().optional(),
+  maxPages: z.number(),
+});
+
+export type BlogMeta = z.infer<typeof blogMetaSchema>;
+
 const blogMeta = defineCollection({
   type: "data",
-  schema: z.object({
-    title: z.string(),
-    date: z.date(),
-    cover: z.string().optional(),
-    color: z.string().optional(),
-    maxPages: z.number(),
-  }),
+  schema: blogMetaSchema,
 });
 
 export const collections = {

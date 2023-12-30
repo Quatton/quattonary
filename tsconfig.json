@@ -2,10 +2,16 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "strictNullChecks": true,
-    "baseUrl": ".",
+    "baseUrl": "C:/Users/Atom/Documents/GitHub/quattonary",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@images/*": ["src/images/*"]
-    }
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@images/*": [
+        "src/images/*"
+      ]
+    },
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js"
   }
 }

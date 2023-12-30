@@ -1,0 +1,111 @@
+---
+import { getCollection, getEntries, getEntry, type CollectionEntry } from 'astro:content';
+import { Book } from "@components/solid/book";
+import { BookPage } from "@components/solid/book-page";
+import { split } from "string-ts";
+
+import BlogLayout from "src/layouts/BlogLayout.astro";
+
+export const prerender = true;
+
+
+export async function getStaticPaths() {
+  const collections = await getCollection("blogMeta");
+
+  return collections.map((entry) => ({
+      params: {
+        blog_id: entry.id,
+      },
+    }));
+}
+
+const { blog_id } = Astro.params;
+const pageMeta = await getEntry("blogMeta", blog_id);
+
+const entries = await getEntries(Array.from({ length: pageMeta.data.maxPages }, (_, i) => ({
+  collection: "blog",
+  slug: `${blog_id}/${i + 1}` as CollectionEntry<"blog">["slug"]
+})))
+
+const content = await Promise.all(entries.map(async (entry) => {
+  const { Content } = await entry.render();
+  return {
+    Content,
+    page: split(entry.slug, "/")[1]
+  }
+}));
+---
+
+<BlogLayout title={pageMeta.data.title} path={blog_id} collection="blogMeta">
+  <section class="p-8 max-md:block hidden">
+    <article class="prose prose-invert prose-sm">{content.map(({Content}) => (
+      <Content />
+    ))}
+    </article>
+  </section>
+  <section class="relative p-8 hidden h-full md:flex items-center justify-center">
+    
+    <div class="absolute top-0 left-0 right-0 bottom-0 grid grid-cols-8 grid-rows-4">
+      {Array.from({ length: 32 }, (_, i) => i + 1).map((page) => (
+        <div
+          class={`row-${Math.ceil(page / 8)}-col-${page % 8}`}
+        />
+      ))}
+    </div>
+  
+    <Book>
+      {content.map(({Content, page}) => (
+        <BookPage page={parseInt(page)} meta={pageMeta.data}>
+          <Content />
+        </BookPage>
+      ))}
+    </Book>
+
+  </section>
+</BlogLayout>
+
+<style lang="scss" is:global>
+  section {
+    perspective: 800px;
+  }
+
+  .book-parent {
+    @apply transition-all pointer-events-none;
+    perspective: 800px;
+    transform-style: preserve-3d;
+    transform: rotateX(10deg);
+  }
+
+  
+  @for $row from 1 through 4 {
+    @for $col from 1 through 8 {
+      div:has(.row-#{$row}-col-#{$col}:hover) ~ .book-parent {
+        transform: rotateY(calc((#{$col} - 4.5) * 2deg)) rotateX(calc(10deg + (#{$row} - 2.5) * -2deg));
+      }
+    }
+  }
+
+  .left-page {
+    @apply left-0 origin-right transition-all pointer-events-auto;
+
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    
+    &:hover {
+      transform: rotateY(5deg);
+    }
+    
+  }
+
+
+  .right-page {
+    @apply right-0 origin-left transition-all pointer-events-auto;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    
+    &:hover {
+      transform: rotateY(-5deg);
+    }
+  }
+  
+</style>
