@@ -38,29 +38,32 @@ const hasNextPage = leftNum + 2 < pageMeta.data.maxPages;
 ---
 
 <BlogLayout title={pageMeta.data.title} path={blog_id} collection="blogMeta">
-  <div class="absolute grid max-md:grid-rows-[auto,1fr,auto] grid-cols-[auto,minmax(0,48rem),auto]  m-auto inset-0 place-content-center rotate transition-all p-16">
+  <div class="absolute 
+              m-auto inset-0 rotate transition-all px-8 pb-8
+              grid place-content-center md:grid-cols-[auto,minmax(0,48rem),auto] max-md:grid-rows-[auto,1fr,auto]
+              ">
     <a 
       aria-label="Previous Page"
       href={leftNum - 2 >= 1 ? `/blog/${blog_id}/${leftNum - 2}` : ""} 
       class={cn(
         "grid place-content-center from-amber-200/10 hover:from-amber-200/50 to-amber-200/0 transition-all",
-        "max-md:h-12 max-md:bg-gratdient-to-b",
+        "max-md:h-12 max-md:bg-gradient-to-t",
         "md:w-12 md:bg-gradient-to-l "
       )}>
       <Icon name="mdi:chevron-left" class="hidden md:block w-6 h-6 m-auto text-amber-200" />
       <Icon name="mdi:chevron-up" class="md:hidden block w-6 h-6 m-auto text-amber-200" />
 
     </a>
-    <section class="grid md:grid-cols-2">
-      <article class="p-4 aspect-square prose prose-sm prose-invert rounded-lg bg-neutral-900">{LeftContent && <LeftContent />}</article>
-      <article class="p-4 aspect-square prose prose-sm prose-invert rounded-lg bg-neutral-900">{RightContent && <RightContent />}</article>
+    <section class="grid md:grid-cols-2 max-md:grid-rows-[1fr,1fr] max-md:w-48">
+      <article class="place-self-stretch p-4 aspect-square prose prose-sm prose-invert rounded-lg bg-neutral-900">{LeftContent && <LeftContent />}</article>
+      <article class="place-self-stretch p-4 aspect-square prose prose-sm prose-invert rounded-lg bg-neutral-900">{RightContent && <RightContent />}</article>
     </section>
     <a 
       aria-label="Next Page"
       href={hasNextPage ? `/blog/${blog_id}/${leftNum + 2}` : ""} 
       class={cn(
         "grid place-content-center from-amber-200/10 hover:from-amber-200/50 to-amber-200/0 transition-all",
-        "max-md:h-12 max-md:bg-gratdient-to-b",
+        "max-md:h-12 max-md:bg-gradient-to-b",
         "md:w-12 md:bg-gradient-to-r "
       )}>
       <Icon name="mdi:chevron-right" class="hidden md:block w-6 h-6 m-auto text-amber-200" />
