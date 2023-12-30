@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon";
 import { getEntry, type CollectionKey, type DataCollectionKey, type ContentCollectionKey } from "astro:content";
-import { isDataCollection } from "src/utils/type-guard";
+import { isDataCollection } from "src/lib/type-guard";
 
 export interface Props {
   path: string;
@@ -60,4 +60,3 @@ const page = path ?
     }
   }
 </style>
-src/lib/type-guard

@@ -6,7 +6,7 @@ export const prerender = true;
 
 import { getEntry } from "astro:content";
 import MarkdownLayout from "src/layouts/MarkdownLayout.astro";
-import { formatDate } from 'src/utils/date';
+import { formatDate } from 'src/lib/utils';
 const blogPreface = await getEntry("front", "blog");
 const { Content } = await blogPreface.render();
 
@@ -46,4 +46,4 @@ const blogPosts = (await getCollection("blogMeta"))
       }
     }
   }
-</style>src/lib/date
+</style>

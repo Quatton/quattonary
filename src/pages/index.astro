@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon";
 import Layout from "../layouts/Layout.astro";
-import { pages as _pages } from "../utils/pages";
+import { pages as _pages } from "src/lib/pages";
 import { getCollection } from "astro:content";
 
 const collections = await getCollection("front");
