@@ -5,6 +5,7 @@ import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 import BlogLayout from "src/layouts/BlogLayout.astro";
 import type { Split } from 'src/lib/types';
 import { cn } from 'src/lib/utils';
+
 export const prerender = true;
 
 export async function getStaticPaths() {
@@ -38,48 +39,39 @@ const hasNextPage = leftNum + 2 < pageMeta.data.maxPages;
 ---
 
 <BlogLayout title={pageMeta.data.title} path={blog_id} collection="blogMeta">
-  <div class="absolute 
-              m-auto inset-0 rotate transition-all px-8 pb-8
-              grid place-content-center md:grid-cols-[auto,minmax(0,48rem),auto] max-md:grid-rows-[auto,1fr,auto]
-              ">
-    <a 
-      aria-label="Previous Page"
-      href={leftNum - 2 >= 1 ? `/blog/${blog_id}/${leftNum - 2}` : ""} 
-      class={cn(
-        "grid place-content-center from-amber-200/10 hover:from-amber-200/50 to-amber-200/0 transition-all",
-        "max-md:h-12 max-md:bg-gradient-to-t",
-        "md:w-12 md:bg-gradient-to-l "
-      )}>
-      <Icon name="mdi:chevron-left" class="hidden md:block w-6 h-6 m-auto text-amber-200" />
-      <Icon name="mdi:chevron-up" class="md:hidden block w-6 h-6 m-auto text-amber-200" />
-
-    </a>
-    <section class="grid md:grid-cols-2 max-md:grid-rows-[1fr,1fr] max-md:w-48">
-      <article class="place-self-stretch p-4 aspect-square prose prose-sm prose-invert rounded-lg bg-neutral-900">{LeftContent && <LeftContent />}</article>
-      <article class="place-self-stretch p-4 aspect-square prose prose-sm prose-invert rounded-lg bg-neutral-900">{RightContent && <RightContent />}</article>
-    </section>
-    <a 
-      aria-label="Next Page"
-      href={hasNextPage ? `/blog/${blog_id}/${leftNum + 2}` : ""} 
-      class={cn(
-        "grid place-content-center from-amber-200/10 hover:from-amber-200/50 to-amber-200/0 transition-all",
-        "max-md:h-12 max-md:bg-gradient-to-b",
-        "md:w-12 md:bg-gradient-to-r "
-      )}>
-      <Icon name="mdi:chevron-right" class="hidden md:block w-6 h-6 m-auto text-amber-200" />
-      <Icon name="mdi:chevron-down" class="md:hidden block w-6 h-6 m-auto text-amber-200" />
-    </a> 
+  <div class="grid md:grid-cols-[auto,1fr,1fr,auto]">
+      <a
+        aria-label="Previous Page"
+        href={leftNum - 2 >= 1 ? `/blog/${blog_id}/${leftNum - 2}` : ""}
+        class={cn(
+          "w-full grid place-content-center from-amber-200/10 hover:from-amber-200/50 to-amber-200/0 transition-all *:hover:-translate-y-1",
+          "max-md:h-12 max-md:bg-gradient-to-t",
+          "md:w-12 md:bg-gradient-to-l"
+        )}
+        >
+        <Icon name="mdi:chevron-up" class="md:-rotate-90 w-6 h-6 m-auto text-amber-200 transition-all" />
+      </a>
+      <article class="aspect-square p-4 prose prose-sm prose-invert rounded-lg bg-neutral-900">{LeftContent && <LeftContent />}</article>
+      <article class="aspect-square p-4 prose prose-sm prose-invert rounded-lg bg-neutral-900">{RightContent && <RightContent />}</article>
+      <a
+        aria-label="Next Page"
+        href={hasNextPage ? `/blog/${blog_id}/${leftNum + 2}` : ""}
+        class={cn(
+          "w-full grid place-content-center from-amber-200/10 hover:from-amber-200/50 to-amber-200/0 transition-all *:hover:translate-y-1",
+          "max-md:h-12 max-md:bg-gradient-to-b",
+          "md:w-12 md:bg-gradient-to-r "
+        )}>
+        <Icon name="mdi:chevron-down" class="md:-rotate-90 w-6 h-6 m-auto text-amber-200 transition-all" />
+      </a>
   </div>
 </BlogLayout>
 
 <style lang="scss" is:global>
   main {
-    @apply px-8;
-    perspective: 800px;   
+    @apply p-8 flex md:flex-col justify-center;
+    perspective: 800px;
     overflow: hidden !important; 
   }
-
-  
   .rotate {
     transform: rotateX(10deg);
   }
