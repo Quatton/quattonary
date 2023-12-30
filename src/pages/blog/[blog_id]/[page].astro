@@ -1,4 +1,5 @@
 ---
+import Icon from 'astro-icon';
 import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 
 import BlogLayout from "src/layouts/BlogLayout.astro";
@@ -36,20 +37,33 @@ const hasNextPage = leftNum + 2 < pageMeta.data.maxPages;
 ---
 
 <BlogLayout title={pageMeta.data.title} path={thatPage.slug} collection="blogMeta">
-  <div class="grid grid-cols-[auto,auto,auto] min-h-full place-content-center">
-    <a href={leftNum - 2 >= 1 ? `/blog/${blog_id}/${leftNum - 2}` : "#"} class="w-12 bg-gradient-to-l from-amber-200/10 hover:from-amber-200/50 to-amber-200/0 transition-all">
+  <div class="absolute grid max-md:grid-rows-[repeat(3,auto)] md:grid-cols-[repeat(3,auto)] m-auto inset-0 place-content-center rotate transition-all">
+    <a href={leftNum - 2 >= 1 ? `/blog/${blog_id}/${leftNum - 2}` : "#"} class="grid place-content-center w-12 bg-gradient-to-l from-amber-200/10 hover:from-amber-200/50 to-amber-200/0 transition-all">
+      <Icon name="mdi:chevron-left" class="w-6 h-6 m-auto text-amber-200" />
     </a>
     <section class="grid md:grid-cols-2 mx-auto max-w-[48rem]">
-      <article class="max-h-96 min-h-72 p-4 aspect-square prose prose-sm prose-invert rounded-lg bg-neutral-900">{LeftContent && <LeftContent />}</article>
-      <article class="max-h-96 min-h-72 p-4 aspect-square prose prose-sm prose-invert rounded-lg bg-neutral-900">{RightContent && <RightContent />}</article>
+      <article class="md:max-h-[32rem] min-h-72 p-4 aspect-square prose prose-sm prose-invert rounded-lg bg-neutral-900">{LeftContent && <LeftContent />}</article>
+      <article class="md:max-h-[32rem] min-h-72 p-4 aspect-square prose prose-sm prose-invert rounded-lg bg-neutral-900">{RightContent && <RightContent />}</article>
     </section>
-    <a href={hasNextPage ? `/blog/${blog_id}/${leftNum + 2}` : "#"} class="w-12 bg-gradient-to-r from-amber-200/10 hover:from-amber-200/50 to-amber-200/0 transition-all">
+    <a href={hasNextPage ? `/blog/${blog_id}/${leftNum + 2}` : "#"} class="grid place-content-center w-12 bg-gradient-to-r from-amber-200/10 hover:from-amber-200/50 to-amber-200/0 transition-all">
+      <Icon name="mdi:chevron-right" class="w-6 h-6 m-auto text-amber-200" />
     </a> 
   </div>
 </BlogLayout>
 
-<style is:global>
+<style lang="scss" is:global>
   main {
     @apply px-8;
+    perspective: 800px;   
+    overflow: hidden !important; 
+  }
+
+  
+  .rotate {
+    transform: rotateX(10deg);
+  }
+  
+  .rotate:not(:hover):not(:has(> :is(a, section):hover)) {
+    transform: rotateX(0deg);
   }
 </style>
