@@ -55,14 +55,16 @@ const content = await Promise.all(
   <section class="w-full h-full relative">
     <div class="flex h-full overflow-x-auto background-scroll">
       {
-        Array.from({ length: content.length + 2 }, (_, idx) => (
+        Array.from({ length: content.length + 1 }, (_, idx) => (
           <div
-            class="w-dvw h-full shrink-0 text-[48rem]"
-            style={{
-              backgroundColor: `hsl(${
-                (idx * 360) / content.length
-              }, 100%, 50%, 0.2)`,
-            }}
+            class="w-[100dvw] h-full shrink-0 text-[48rem]"
+            style={
+              {
+                // backgroundColor: `hsl(${
+                //   (idx * 360) / content.length
+                // }, 100%, 50%, 0.2)`,
+              }
+            }
           />
         ))
       }
@@ -88,7 +90,7 @@ const content = await Promise.all(
     <div
       class="absolute top-1/2 left-1/2 w-[min(48rem,100%)] aspect-[2/1] book-parent"
       style={{
-        "--total": content.length + 1,
+        "--total": content.length,
       }}
     >
       {
@@ -100,7 +102,7 @@ const content = await Promise.all(
               parseInt(page) % 2 === 0 ? "right-page" : "left-page"
             )}
             style={{
-              "--offset": parseInt(page),
+              "--offset": parseInt(page) - 1,
             }}
           >
             <Content />
@@ -108,6 +110,16 @@ const content = await Promise.all(
           // </BookPage>
         ))
       }
+      <article
+        class={cn(
+          "rounded-lg absolute prose prose-invert aspect-square bg-neutral-900 p-4 w-1/2 shadow-neutral-950 shadow-lg",
+          content.length % 2 === 0 ? "right-page" : "left-page"
+        )}
+        style={{
+          "--offset": content.length,
+        }}
+      >
+      </article>
       <!-- </Book> -->
     </div>
   </section>
@@ -163,7 +175,7 @@ const content = await Promise.all(
     // odd article
     article:nth-child(2n + 1) {
       @apply left-0 origin-right transition-all;
-      rotate: y 180deg;
+      rotate: y calc(180deg - (var(--total) - var(--offset)) * 1deg);
       animation: flip-odd linear forwards;
       animation-timeline: --background-scroll;
       animation-range-start: calc((var(--offset) - 1) / var(--total) * 100%);
@@ -173,11 +185,12 @@ const content = await Promise.all(
     // even article
     article:nth-child(2n) {
       @apply right-0 origin-left transition-all;
+      rotate: y calc((var(--total) - var(--offset)) * -1deg);
       animation: flip-even linear forwards;
       animation-timeline: --background-scroll;
-      animation-range-start: calc(var(--offset) / var(--total) * 100% + 0.1px);
+      animation-range-start: calc(var(--offset) / var(--total) * 100% - 0.5px);
       animation-range-end: calc(
-        (var(--offset) + 1) / var(--total) * 100% - 0.1px
+        (var(--offset) + 1) / var(--total) * 100% - 0.5px
       );
     }
   </style>
