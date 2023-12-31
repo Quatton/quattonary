@@ -156,7 +156,7 @@ const content = await Promise.all(
 
     @keyframes flip-odd {
       from {
-        rotate: y 180deg;
+        rotate: y 150deg;
       }
       to {
         rotate: y 0deg;
@@ -165,7 +165,7 @@ const content = await Promise.all(
 
     @keyframes flip-even {
       from {
-        rotate: y 0deg;
+        rotate: y -30deg;
       }
       to {
         rotate: y -180deg;
@@ -188,9 +188,9 @@ const content = await Promise.all(
       rotate: y calc((var(--total) - var(--offset)) * -1deg);
       animation: flip-even linear forwards;
       animation-timeline: --background-scroll;
-      animation-range-start: calc(var(--offset) / var(--total) * 100% - 0.5px);
+      animation-range-start: calc(var(--offset) / var(--total) * 100% - 0.1px);
       animation-range-end: calc(
-        (var(--offset) + 1) / var(--total) * 100% - 0.5px
+        (var(--offset) + 1) / var(--total) * 100% - 0.1px
       );
     }
   </style>
