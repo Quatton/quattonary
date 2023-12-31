@@ -1,111 +1,184 @@
 ---
-import { getCollection, getEntries, getEntry, type CollectionEntry } from 'astro:content';
-import { Book } from "@components/solid/book";
-import { BookPage } from "@components/solid/book-page";
+import {
+  getCollection,
+  getEntries,
+  getEntry,
+  type CollectionEntry,
+} from "astro:content";
+// import { Book } from "@components/solid/book";
+// import { BookPage } from "@components/solid/book-page";
 import { split } from "string-ts";
 
 import BlogLayout from "src/layouts/BlogLayout.astro";
+import { cn } from "src/lib/utils";
 
 export const prerender = true;
-
 
 export async function getStaticPaths() {
   const collections = await getCollection("blogMeta");
 
   return collections.map((entry) => ({
-      params: {
-        blog_id: entry.id,
-      },
-    }));
+    params: {
+      blog_id: entry.id,
+    },
+  }));
 }
 
 const { blog_id } = Astro.params;
 const pageMeta = await getEntry("blogMeta", blog_id);
 
-const entries = await getEntries(Array.from({ length: pageMeta.data.maxPages }, (_, i) => ({
-  collection: "blog",
-  slug: `${blog_id}/${i + 1}` as CollectionEntry<"blog">["slug"]
-})))
+const entries = await getEntries(
+  Array.from({ length: pageMeta.data.maxPages }, (_, i) => ({
+    collection: "blog",
+    slug: `${blog_id}/${i + 1}` as CollectionEntry<"blog">["slug"],
+  }))
+);
 
-const content = await Promise.all(entries.map(async (entry) => {
-  const { Content } = await entry.render();
-  return {
-    Content,
-    page: split(entry.slug, "/")[1]
-  }
-}));
+const content = await Promise.all(
+  entries.map(async (entry) => {
+    const { Content } = await entry.render();
+    return {
+      Content,
+      page: split(entry.slug, "/")[1],
+    };
+  })
+);
 ---
 
 <BlogLayout title={pageMeta.data.title} path={blog_id} collection="blogMeta">
-  <section class="p-8 max-md:block hidden">
-    <article class="prose prose-invert prose-sm">{content.map(({Content}) => (
-      <Content />
-    ))}
+  <!-- <section class="p-8 max-md:block hidden">
+    <article class="prose prose-invert prose-sm">
+      {content.map(({ Content }) => <Content />)}
     </article>
-  </section>
-  <section class="relative p-8 hidden h-full md:flex items-center justify-center">
-    
-    <div class="absolute top-0 left-0 right-0 bottom-0 grid grid-cols-8 grid-rows-4">
-      {Array.from({ length: 32 }, (_, i) => i + 1).map((page) => (
-        <div
-          class={`row-${Math.ceil(page / 8)}-col-${page % 8}`}
-        />
-      ))}
+  </section> -->
+
+  <section class="w-full h-full relative">
+    <div class="flex h-full overflow-x-auto background-scroll">
+      {
+        Array.from({ length: content.length + 2 }, (_, idx) => (
+          <div
+            class="w-dvw h-full shrink-0 text-[48rem]"
+            style={{
+              backgroundColor: `hsl(${
+                (idx * 360) / content.length
+              }, 100%, 50%, 0.2)`,
+            }}
+          />
+        ))
+      }
     </div>
-  
-    <Book>
-      {content.map(({Content, page}) => (
-        <BookPage page={parseInt(page)} meta={pageMeta.data}>
-          <Content />
-        </BookPage>
-      ))}
-    </Book>
 
+    <div
+      class="absolute top-0 left-0 w-full h-5/6 grid grid-cols-8 grid-rows-4"
+    >
+      {
+        Array.from({ length: 32 }, (_, i) => i + 1).map((pos) => (
+          <div
+            class={`row-${Math.ceil(pos / 8)}-col-${pos % 8}`}
+            style={
+              {
+                // backgroundColor: `hsl(${(pos * 360) / 32}, 100%, 50%, 0.2)`,
+              }
+            }
+          />
+        ))
+      }
+    </div>
+
+    <div
+      class="absolute top-1/2 left-1/2 w-[min(48rem,100%)] aspect-[2/1] book-parent"
+      style={{
+        "--total": content.length + 1,
+      }}
+    >
+      {
+        content.map(({ Content, page }) => (
+          // <BookPage page={parseInt(page)} meta={pageMeta.data}>
+          <article
+            class={cn(
+              "rounded-lg absolute prose prose-invert aspect-square bg-neutral-900 p-4 w-1/2 shadow-neutral-950 shadow-lg",
+              parseInt(page) % 2 === 0 ? "right-page" : "left-page"
+            )}
+            style={{
+              "--offset": parseInt(page),
+            }}
+          >
+            <Content />
+          </article>
+          // </BookPage>
+        ))
+      }
+      <!-- </Book> -->
+    </div>
   </section>
-</BlogLayout>
 
-<style lang="scss" is:global>
-  section {
-    perspective: 800px;
-  }
+  <style lang="scss" is:global>
+    $base: translateX(-50%) translateY(-50%);
 
-  .book-parent {
-    @apply transition-all pointer-events-none;
-    perspective: 800px;
-    transform-style: preserve-3d;
-    transform: rotateX(10deg);
-  }
+    section {
+      perspective: 1000px;
+      overflow: hidden;
+      timeline-scope: --background-scroll;
+    }
 
-  
-  @for $row from 1 through 4 {
-    @for $col from 1 through 8 {
-      div:has(.row-#{$row}-col-#{$col}:hover) ~ .book-parent {
-        transform: rotateY(calc((#{$col} - 4.5) * 2deg)) rotateX(calc(10deg + (#{$row} - 2.5) * -2deg));
+    .background-scroll {
+      scroll-timeline: --background-scroll x;
+    }
+
+    .book-parent {
+      @apply transition-all pointer-events-none;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      transform: $base rotateX(30deg);
+    }
+
+    @for $row from 1 through 4 {
+      @for $col from 1 through 8 {
+        div:has(.row-#{$row}-col-#{$col}:hover) ~ div {
+          transform: $base
+            rotateY(calc((#{$col} - 4.5) * 2deg))
+            rotateX(calc(10deg + (#{$row} - 2.5) * -2deg));
+        }
       }
     }
-  }
 
-  .left-page {
-    @apply left-0 origin-right transition-all pointer-events-auto;
-
-    transform-style: preserve-3d;
-    transform: rotateY(0deg);
-    
-    &:hover {
-      transform: rotateY(5deg);
+    @keyframes flip-odd {
+      from {
+        rotate: y 180deg;
+      }
+      to {
+        rotate: y 0deg;
+      }
     }
-    
-  }
 
-
-  .right-page {
-    @apply right-0 origin-left transition-all pointer-events-auto;
-    transform-style: preserve-3d;
-    transform: rotateY(0deg);
-    
-    &:hover {
-      transform: rotateY(-5deg);
+    @keyframes flip-even {
+      from {
+        rotate: y 0deg;
+      }
+      to {
+        rotate: y -180deg;
+      }
     }
-  }
-  
-</style>
+
+    // odd article
+    article:nth-child(2n + 1) {
+      @apply left-0 origin-right transition-all;
+      rotate: y 180deg;
+      animation: flip-odd linear forwards;
+      animation-timeline: --background-scroll;
+      animation-range-start: calc((var(--offset) - 1) / var(--total) * 100%);
+      animation-range-end: calc(var(--offset) / var(--total) * 100%);
+    }
+
+    // even article
+    article:nth-child(2n) {
+      @apply right-0 origin-left transition-all;
+      animation: flip-even linear forwards;
+      animation-timeline: --background-scroll;
+      animation-range-start: calc(var(--offset) / var(--total) * 100% + 0.1px);
+      animation-range-end: calc(
+        (var(--offset) + 1) / var(--total) * 100% - 0.1px
+      );
+    }
+  </style>
+</BlogLayout>

@@ -5,24 +5,28 @@ import Header from "./Header.astro";
 export interface Props {
   title: string;
   path?: string;
-  collection?: CollectionKey
+  collection?: CollectionKey;
 }
 
 const { title, path = "", collection } = Astro.props as Props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <!-- scroll timeline polyfill -->
+    <!-- <script
+      src="https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js"
+      defer></script> -->
     <meta name="generator" content={Astro.generator} />
     <ViewTransitions />
     <title>{title}</title>
   </head>
   <body>
-    <Header path={path} collection={collection}/>
+    <Header path={path} collection={collection} />
     <main>
       <slot />
     </main>
@@ -65,10 +69,24 @@ const { title, path = "", collection } = Astro.props as Props;
       }
 
       html {
-        font-family: "Lato", "Bai Jamjuree", "Zen Maru Gothic", ui-sans-serif,
-          system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-          "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-family:
+          "Lato",
+          "Bai Jamjuree",
+          "Zen Maru Gothic",
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          "Helvetica Neue",
+          Arial,
+          "Noto Sans",
+          sans-serif,
+          "Apple Color Emoji",
+          "Segoe UI Emoji",
+          "Segoe UI Symbol",
+          "Noto Color Emoji";
         font-size: var(--font-size-base);
         color: var(--color-text);
         margin: 0;
@@ -79,7 +97,7 @@ const { title, path = "", collection } = Astro.props as Props;
         flex-direction: column;
         margin: 0;
         height: 100vh;
-        // perspective: 800px;
+        // perspective: 1000px;
       }
 
       body > * {
@@ -93,8 +111,15 @@ const { title, path = "", collection } = Astro.props as Props;
       }
 
       :global(code) {
-        font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-          DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+        font-family:
+          Menlo,
+          Monaco,
+          Lucida Console,
+          Liberation Mono,
+          DejaVu Sans Mono,
+          Bitstream Vera Sans Mono,
+          Courier New,
+          monospace;
       }
     </style>
   </body>
