@@ -4,6 +4,8 @@ import Layout from "../layouts/Layout.astro";
 import { pages as _pages } from "src/lib/pages";
 import { getCollection } from "astro:content";
 
+export const prerender = true;
+
 const collections = await getCollection("front");
 const pages = structuredClone(_pages);
 collections.forEach((collection) => {
@@ -16,7 +18,6 @@ collections.forEach((collection) => {
       pages[id] = { ...collection.data, id };
     });
   }
-  
 });
 ---
 
@@ -114,4 +115,4 @@ collections.forEach((collection) => {
     }
   }
 </style>
-../lib/pages
+ ../lib/pages

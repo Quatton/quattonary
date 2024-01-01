@@ -1,5 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import { pageSchema } from "src/lib/pages";
+import { blogMetaSchema } from "./schema";
 
 const frontPages = defineCollection({
   type: "content",
@@ -18,16 +19,6 @@ const blog = defineCollection({
   type: "content",
   schema: z.object({}),
 });
-
-export const blogMetaSchema = z.object({
-  title: z.string(),
-  date: z.date(),
-  cover: z.string().optional(),
-  color: z.string().optional(),
-  maxPages: z.number(),
-});
-
-export type BlogMeta = z.infer<typeof blogMetaSchema>;
 
 const blogMeta = defineCollection({
   type: "data",
