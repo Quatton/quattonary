@@ -1,13 +1,12 @@
 ---
+import { isDataCollection } from "@/lib/type-guard";
+import { cn } from "@/lib/utils";
 import { Icon } from "astro-icon";
 import {
   getEntry,
-  type CollectionKey,
-  type DataCollectionKey,
   type ContentCollectionKey,
+  type DataCollectionKey,
 } from "astro:content";
-import { isDataCollection } from "@/lib/type-guard";
-import { cn } from "@/lib/utils";
 
 export interface Props {
   path: string;
