@@ -17,7 +17,7 @@ const blogPosts = (await getCollection("blogMeta")).toSorted(
 
 <MarkdownLayout title={blogPreface.data.title} path={blogPreface.data.path}>
   <Content />
-  <div class="grid grid-cols-3 gap-4 not-prose">
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4 not-prose">
     {
       blogPosts.map((blog) => {
         return (
@@ -26,8 +26,10 @@ const blogPosts = (await getCollection("blogMeta")).toSorted(
             class="rounded-md aspect-square shadow-neutral-800 shadow-md transition-all overflow-visible"
           >
             <div class="grid-rows-[1fr_auto] origin-left transition-all w-full h-full grid grid-[1fr_auto] place-items-center place-content-center bg-neutral-900 rounded-md p-4">
-              <h2 class="font-bold text-2xl text-balance">{blog.data.title}</h2>
-              <p class="flex items-center gap-2">
+              <h2 class="font-bold text-lg md:text-2xl text-balance">
+                {blog.data.title}
+              </h2>
+              <p class="flex items-center gap-2 text-xs md:text-sm text-neutral-400">
                 <Icon name="noto:calendar" class="w-4 h-4" />
                 {formatDate(blog.data.date)}
               </p>

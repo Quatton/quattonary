@@ -58,10 +58,10 @@ const content = await Promise.all(
       class="flex h-full overflow-x-auto background-scroll snap-x snap-mandatory scroll-smooth"
     >
       {
-        Array.from({ length: Math.ceil(content.length / 2) + 1 }, (_, idx) => (
+        Array.from({ length: content.length + 2 }, (_, idx) => (
           <div
             id={`page-${idx}`}
-            class="w-[101dvw] h-full shrink-0 text-[48rem] snap-start"
+            class="w-[100dvw] h-full shrink-0 text-[48rem] snap-start odd:md:hidden last:max-md:hidden"
             style={
               {
                 // backgroundColor: `hsl(${
@@ -74,7 +74,7 @@ const content = await Promise.all(
       }
     </div>
 
-    <div
+    <!-- <div
       class="absolute top-0 left-0 w-full h-full grid grid-cols-8 grid-rows-4"
     >
       {
@@ -89,10 +89,10 @@ const content = await Promise.all(
           />
         ))
       }
-    </div>
+    </div> -->
 
     <div
-      class="absolute top-1/2 left-1/2 w-[min(48rem,90%)] aspect-[2/1] book-parent"
+      class="absolute top-1/2 left-1/2 w-[min(36rem,60%)] md:w-[min(48rem,90%)] aspect-[2/3] md:aspect-[2/1] book-parent"
       style={{
         "--total": content.length,
       }}
@@ -103,26 +103,41 @@ const content = await Promise.all(
           <>
             <article
               class={cn(
-                "rounded-lg absolute prose prose-invert aspect-square bg-neutral-900 p-4 w-1/2 shadow-neutral-950 shadow-lg"
+                "rounded-lg absolute prose prose-invert aspect-[2/3] md:aspect-square bg-neutral-900 p-4 w-full md:w-1/2 shadow-neutral-950 shadow-lg"
               )}
               style={{
                 "--offset": idx,
               }}
             >
               <Content />
-              {idx > 0 && idx < content.length - 1 && (
+              <a
+                href={`#page-${
+                  Math.ceil(idx / 2) * 2 + (idx % 2 === 1 ? 1 : -1)
+                }`}
+                class={cn(
+                  "absolute w-12 h-full from-amber-200/20 to-amber-200/0 pointer-events-auto top-0 items-center justify-center transition-all rounded-lg hidden md:flex"
+                )}
+              >
+                <Icon name="mdi:chevron-right" class="w-6 h-6 text-amber-200" />
+              </a>
+              <!-- 
                 <a
-                  href={`#page-${idx % 2 === 1 ? (idx + 1) / 2 : idx / 2 - 1}`}
+                  href={`#page-${idx - 1}`}
                   class={cn(
-                    "absolute w-12 h-full from-amber-200/20 to-amber-200/0 pointer-events-auto top-0 flex items-center justify-center transition-all rounded-lg"
+                    "left-0 left-link absolute w-12 h-full from-amber-200/20 to-amber-200/0 pointer-events-auto top-0 flex items-center justify-center transition-all rounded-lg md:hidden"
                   )}
                 >
-                  <Icon
-                    name="mdi:chevron-right"
-                    class="w-6 h-6 text-amber-200"
-                  />
+                  <Icon name="mdi:chevron-right" class="w-6 h-6 text-amber-200" />
                 </a>
-              )}
+                <a
+                  href={`#page-${idx + 1}`}
+                  class={cn(
+                    "right-0 right-link absolute w-12 h-full from-amber-200/20 to-amber-200/0 pointer-events-auto top-0 flex items-center justify-center transition-all rounded-lg md:hidden"
+                  )}
+                >
+                  <Icon name="mdi:chevron-right" class="w-6 h-6 text-amber-200" />
+                </a>
+              -->
             </article>
           </>
           // </BookPage>
@@ -130,13 +145,21 @@ const content = await Promise.all(
       }
       <article
         class={cn(
-          "rounded-lg absolute prose prose-invert aspect-square bg-neutral-900 p-4 w-1/2 shadow-neutral-950 shadow-lg",
-          content.length % 2 === 0 ? "right-page" : "left-page"
+          "rounded-lg absolute prose prose-invert aspect-[2/3] md:aspect-square bg-neutral-900 p-4 w-full md:w-1/2 shadow-neutral-950 shadow-lg",
+          content.length % 2 === 0 ? "right-page" : "left-page",
+          "flex flex-col gap-2 items-center justify-center"
         )}
         style={{
           "--offset": content.length,
         }}
       >
+        <p class="font-serif text-xs break-words text-center text-balance">
+          You've reached the end of the book.
+         
+        </p>
+         <a href="/blog" class="pointer-events-auto transition-all hover:-translate-y-1">
+            Read other books
+          </a>
       </article>
     </div>
   </section>
@@ -188,70 +211,90 @@ const content = await Promise.all(
         rotate: y -180deg;
       }
     }
-    // odd article
-    article:nth-child(2n + 1) {
-      @apply left-0 origin-right transition-all pointer-events-none;
-      rotate: y calc(180deg - (var(--total) - var(--offset)) * 1deg);
-      animation: flip-odd linear forwards;
-      animation-timeline: --background-scroll;
-      animation-range-start: calc((var(--offset) - 1) / var(--total) * 100%);
-      animation-range-end: calc(var(--offset) / var(--total) * 100%);
 
-      & > a {
-        @apply left-0 transition-all;
-        // circular gradient left most radius
-        // longer vertically than horizontally
-        background-image: radial-gradient(
-          200% 50% at left 50%,
-          var(--tw-gradient-from),
-          var(--tw-gradient-to) 50%
-        );
+    .left-link {
+      background-image: radial-gradient(
+        200% 50% at left 50%,
+        var(--tw-gradient-from),
+        var(--tw-gradient-to) 50%
+      );
 
-        // hover gradient animation
-        background-size: 200% 100%;
-        background-position: 200% 0;
-        background-repeat: no-repeat;
+      // hover gradient animation
+      background-size: 200% 100%;
+      background-position: 200% 0;
+      background-repeat: no-repeat;
 
-        &:hover {
-          background-position: right;
-        }
+      &:hover {
+        background-position: right;
+      }
 
-        & > svg {
-          @apply rotate-180;
-        }
+      & > svg {
+        @apply rotate-180;
+      }
+    }
+
+    .right-link {
+      @apply right-0 transition-all;
+      // circular gradient right most radius
+      // longer vertically than horizontally
+      background-image: radial-gradient(
+        200% 50% at right 50%,
+        var(--tw-gradient-from),
+        var(--tw-gradient-to) 50%
+      );
+
+      // hover gradient animation
+      background-size: 200% 100%;
+      background-position: -100% 0;
+      background-repeat: no-repeat;
+
+      &:hover {
+        background-position: left;
       }
     }
 
     // even article
-    article:nth-child(2n) {
+    .even-pattern {
       @apply right-0 origin-left transition-all pointer-events-none;
       rotate: y calc((var(--total) - var(--offset)) * -1deg);
       animation: flip-even linear forwards;
       animation-timeline: --background-scroll;
-      animation-range-start: calc(var(--offset) / var(--total) * 100% - 0.1px);
+      animation-range-start: calc(var(--offset) / var(--total) * 100% + 0.1%);
       animation-range-end: calc(
-        (var(--offset) + 1) / var(--total) * 100% - 0.1px
+        (var(--offset) + 1) / var(--total) * 100% + 0.1%
       );
 
-      & > a {
-        @apply right-0 transition-all;
-        // circular gradient right most radius
-        // longer vertically than horizontally
-        background-image: radial-gradient(
-          200% 50% at right 50%,
-          var(--tw-gradient-from),
-          var(--tw-gradient-to) 50%
-        );
-
-        // hover gradient animation
-        background-size: 200% 100%;
-        background-position: -100% 0;
-        background-repeat: no-repeat;
-
-        &:hover {
-          background-position: left;
-        }
+      & > a:first-of-type {
+        @apply right-0 transition-all right-link;
       }
+    }
+
+    // odd article
+    .odd-pattern {
+      @apply left-0 origin-right transition-all pointer-events-none;
+      rotate: y calc(180deg - (var(--total) - var(--offset)) * 1deg);
+      animation: flip-odd linear forwards;
+      animation-timeline: --background-scroll;
+      animation-range-start: calc(
+        (var(--offset) - 1) / var(--total) * 100% + 0.5%
+      );
+      animation-range-end: calc(var(--offset) / var(--total) * 100% + 0.5%);
+
+      & > a:first-of-type {
+        @apply left-0 transition-all left-link;
+      }
+    }
+
+    article:nth-child(2n + 1) {
+      @media screen and (min-width: 768px) {
+        @apply odd-pattern;
+      }
+      @media screen and (max-width: 768px) {
+        @apply even-pattern;
+      }
+    }
+    article:nth-child(2n) {
+      @apply even-pattern;
     }
   </style>
 </BlogLayout>

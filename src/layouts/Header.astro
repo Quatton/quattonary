@@ -7,6 +7,7 @@ import {
   type ContentCollectionKey,
 } from "astro:content";
 import { isDataCollection } from "src/lib/type-guard";
+import { cn } from "src/lib/utils";
 
 export interface Props {
   path: string;
@@ -48,9 +49,12 @@ const blogData = isDataCollection(collection)
     {
       page?.data && (
         <>
-          <div class="h-6 border-l-2 border-l-slate-50" />
+          <div class="h-6 border-l-2 border-l-slate-50 " />
           <a
-            class={collection === "front" ? "page" : "page sub-page"}
+            class={cn(
+              collection === "front" ? "page" : "page sub-page",
+              "truncate"
+            )}
             href={`/${collection === "front" ? "" : `blog/`}${path}`}
           >
             {page.data.cover && (
