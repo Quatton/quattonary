@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 
 import { getEntry } from "astro:content";
-import MarkdownLayout from "src/layouts/MarkdownLayout.astro";
+import MarkdownLayout from "@/layouts/MarkdownLayout.astro";
 const thatPage = await getEntry("front", slug);
 const { Content } = await thatPage.render();
 ---

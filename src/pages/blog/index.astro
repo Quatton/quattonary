@@ -5,8 +5,8 @@ import { getCollection } from "astro:content";
 export const prerender = true;
 
 import { getEntry } from "astro:content";
-import MarkdownLayout from "src/layouts/MarkdownLayout.astro";
-import { formatDate } from "src/lib/utils";
+import MarkdownLayout from "@/layouts/MarkdownLayout.astro";
+import { formatDate } from "@/lib/utils";
 const blogPreface = await getEntry("front", "blog");
 const { Content } = await blogPreface.render();
 

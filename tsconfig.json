@@ -4,12 +4,9 @@
     "strictNullChecks": true,
     "baseUrl": "C:/Users/Atom/Documents/GitHub/quattonary",
     "paths": {
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@images/*": [
-        "src/images/*"
-      ]
+      "@components/*": ["src/components/*"],
+      "@images/*": ["src/images/*"],
+      "@/*": ["src/*"]
     },
     "jsx": "preserve",
     "jsxImportSource": "solid-js"
