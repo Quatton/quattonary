@@ -24,7 +24,11 @@ const { title, path = "", collection } = Astro.props as Props;
     <meta name="generator" content={Astro.generator} />
     <ViewTransitions />
     <title>{title}</title>
-  </head>
+  </head><description>
+    Quattonary is my personal website where I share cool projects I build and
+    post tech-related blogs.
+  </description>
+
   <body>
     <Header path={path} collection={collection} />
     <main>
