@@ -121,6 +121,11 @@ const { title, path = "", collection } = Astro.props as Props;
           Courier New,
           monospace;
       }
+      :global(.task-list-item) {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
     </style>
   </body>
 </html>
