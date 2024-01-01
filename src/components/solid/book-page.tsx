@@ -1,5 +1,5 @@
 import { createMemo } from "solid-js";
-import type { BlogMeta } from "src/content/schema";
+import type { BlogMeta } from "src/lib/schema";
 import { cn } from "src/lib/utils";
 import { currentPageSignal } from "./book-signal";
 

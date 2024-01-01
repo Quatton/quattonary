@@ -1,6 +1,6 @@
 import { defineCollection, z } from "astro:content";
+import { blogMetaSchema } from "../lib/schema";
 import { pageSchema } from "src/lib/pages";
-import { blogMetaSchema } from "./schema";
 
 const frontPages = defineCollection({
   type: "content",
