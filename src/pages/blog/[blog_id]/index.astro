@@ -11,6 +11,7 @@ import { split } from "string-ts";
 
 import BlogLayout from "src/layouts/BlogLayout.astro";
 import { cn } from "src/lib/utils";
+import Icon from "astro-icon";
 
 export const prerender = true;
 
@@ -53,11 +54,14 @@ const content = await Promise.all(
   </section> -->
 
   <section class="w-full h-full relative">
-    <div class="flex h-full overflow-x-auto background-scroll">
+    <div
+      class="flex h-full overflow-x-auto background-scroll snap-x snap-mandatory scroll-smooth"
+    >
       {
-        Array.from({ length: content.length + 1 }, (_, idx) => (
+        Array.from({ length: Math.ceil(content.length / 2) + 1 }, (_, idx) => (
           <div
-            class="w-[100dvw] h-full shrink-0 text-[48rem]"
+            id={`page-${idx}`}
+            class="w-[101dvw] h-full shrink-0 text-[48rem] snap-start"
             style={
               {
                 // backgroundColor: `hsl(${
@@ -71,7 +75,7 @@ const content = await Promise.all(
     </div>
 
     <div
-      class="absolute top-0 left-0 w-full h-5/6 grid grid-cols-8 grid-rows-4"
+      class="absolute top-0 left-0 w-full h-full grid grid-cols-8 grid-rows-4"
     >
       {
         Array.from({ length: 32 }, (_, i) => i + 1).map((pos) => (
@@ -88,25 +92,39 @@ const content = await Promise.all(
     </div>
 
     <div
-      class="absolute top-1/2 left-1/2 w-[min(48rem,100%)] aspect-[2/1] book-parent"
+      class="absolute top-1/2 left-1/2 w-[min(48rem,90%)] aspect-[2/1] book-parent"
       style={{
         "--total": content.length,
       }}
     >
       {
-        content.map(({ Content, page }) => (
+        content.map(({ Content, page }, idx) => (
           // <BookPage page={parseInt(page)} meta={pageMeta.data}>
-          <article
-            class={cn(
-              "rounded-lg absolute prose prose-invert aspect-square bg-neutral-900 p-4 w-1/2 shadow-neutral-950 shadow-lg",
-              parseInt(page) % 2 === 0 ? "right-page" : "left-page"
-            )}
-            style={{
-              "--offset": parseInt(page) - 1,
-            }}
-          >
-            <Content />
-          </article>
+          <>
+            <article
+              class={cn(
+                "rounded-lg absolute prose prose-invert aspect-square bg-neutral-900 p-4 w-1/2 shadow-neutral-950 shadow-lg"
+              )}
+              style={{
+                "--offset": idx,
+              }}
+            >
+              <Content />
+              {idx > 0 && idx < content.length - 1 && (
+                <a
+                  href={`#page-${idx % 2 === 1 ? (idx + 1) / 2 : idx / 2 - 1}`}
+                  class={cn(
+                    "absolute w-12 h-full from-amber-200/20 to-amber-200/0 pointer-events-auto top-0 flex items-center justify-center transition-all rounded-lg"
+                  )}
+                >
+                  <Icon
+                    name="mdi:chevron-right"
+                    class="w-6 h-6 text-amber-200"
+                  />
+                </a>
+              )}
+            </article>
+          </>
           // </BookPage>
         ))
       }
@@ -120,7 +138,6 @@ const content = await Promise.all(
         }}
       >
       </article>
-      <!-- </Book> -->
     </div>
   </section>
 
@@ -141,7 +158,7 @@ const content = await Promise.all(
       @apply transition-all pointer-events-none;
       perspective: 1000px;
       transform-style: preserve-3d;
-      transform: $base rotateX(30deg);
+      transform: $base rotateX(10deg);
     }
 
     @for $row from 1 through 4 {
@@ -171,20 +188,37 @@ const content = await Promise.all(
         rotate: y -180deg;
       }
     }
-
     // odd article
     article:nth-child(2n + 1) {
-      @apply left-0 origin-right transition-all;
+      @apply left-0 origin-right transition-all pointer-events-none;
       rotate: y calc(180deg - (var(--total) - var(--offset)) * 1deg);
       animation: flip-odd linear forwards;
       animation-timeline: --background-scroll;
       animation-range-start: calc((var(--offset) - 1) / var(--total) * 100%);
       animation-range-end: calc(var(--offset) / var(--total) * 100%);
+
+      & > a {
+        @apply left-0;
+
+        &:hover {
+          // circular gradient left most radius
+          // longer vertically than horizontally
+          background-image: radial-gradient(
+            200% 50% at left 50%,
+            var(--tw-gradient-from),
+            var(--tw-gradient-to) 50%
+          );
+        }
+
+        & > svg {
+          @apply rotate-180;
+        }
+      }
     }
 
     // even article
     article:nth-child(2n) {
-      @apply right-0 origin-left transition-all;
+      @apply right-0 origin-left transition-all pointer-events-none;
       rotate: y calc((var(--total) - var(--offset)) * -1deg);
       animation: flip-even linear forwards;
       animation-timeline: --background-scroll;
@@ -192,6 +226,20 @@ const content = await Promise.all(
       animation-range-end: calc(
         (var(--offset) + 1) / var(--total) * 100% - 0.1px
       );
+
+      & > a {
+        @apply right-0;
+
+        &:hover {
+          // circular gradient right most radius
+          // longer vertically than horizontally
+          background-image: radial-gradient(
+            200% 50% at right 50%,
+            var(--tw-gradient-from),
+            var(--tw-gradient-to) 50%
+          );
+        }
+      }
     }
   </style>
 </BlogLayout>
