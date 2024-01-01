@@ -1,6 +1,11 @@
 ---
 import { Icon } from "astro-icon";
-import { getEntry, type CollectionKey, type DataCollectionKey, type ContentCollectionKey } from "astro:content";
+import {
+  getEntry,
+  type CollectionKey,
+  type DataCollectionKey,
+  type ContentCollectionKey,
+} from "astro:content";
 import { isDataCollection } from "src/lib/type-guard";
 
 export interface Props {
@@ -8,28 +13,49 @@ export interface Props {
   collection?: ContentCollectionKey | DataCollectionKey;
 }
 
+const { path, collection = "front" } = Astro.props as Props;
+const page = path
+  ? collection === "blogMeta"
+    ? await getEntry(collection, path)
+    : collection === "front"
+      ? await getEntry(collection, path)
+      : undefined
+  : undefined;
 
-const { path, collection = "front"} = Astro.props as Props;
-const page = path ? 
-  collection === "blogMeta" ? 
-    await getEntry(collection, path) : 
-  collection === "front" ?
-    await getEntry(collection, path) :
-    undefined :
-  undefined;
+const blogData = isDataCollection(collection)
+  ? await getEntry("front", "blog")
+  : undefined;
 
-  // most stupid typescript error ever
+// most stupid typescript error ever
 ---
 
 <header class="w-full flex items-center px-4 py-4 h-16">
   <nav class="flex gap-4 items-center">
     <a class="home" href="/">Quattonary</a>
     {
+      collection === "blogMeta" && (
+        <>
+          <div class="h-6 border-l-2 border-l-slate-50" />
+          <a class="page" href="/blog">
+            {blogData?.data.cover && (
+              <Icon name={blogData.data.cover} color={blogData.data.color} />
+            )}
+            {blogData?.data.title}
+          </a>
+        </>
+      )
+    }
+    {
       page?.data && (
         <>
           <div class="h-6 border-l-2 border-l-slate-50" />
-          <a class="page" href={`/${collection === "front" ? "" : `blog/`}${path}`}>
-            {page.data.cover && <Icon name={page.data.cover} color={page.data.color} />}
+          <a
+            class={collection === "front" ? "page" : "page sub-page"}
+            href={`/${collection === "front" ? "" : `blog/`}${path}`}
+          >
+            {page.data.cover && (
+              <Icon name={page.data.cover} color={page.data.color} />
+            )}
             {page.data.title}
           </a>
         </>
@@ -57,6 +83,10 @@ const page = path ?
       [astro-icon] {
         @apply w-4;
       }
+    }
+
+    &.sub-page {
+      @apply text-sm font-light;
     }
   }
 </style>

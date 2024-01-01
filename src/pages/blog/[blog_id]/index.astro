@@ -198,16 +198,22 @@ const content = await Promise.all(
       animation-range-end: calc(var(--offset) / var(--total) * 100%);
 
       & > a {
-        @apply left-0;
+        @apply left-0 transition-all;
+        // circular gradient left most radius
+        // longer vertically than horizontally
+        background-image: radial-gradient(
+          200% 50% at left 50%,
+          var(--tw-gradient-from),
+          var(--tw-gradient-to) 50%
+        );
+
+        // hover gradient animation
+        background-size: 200% 100%;
+        background-position: 200% 0;
+        background-repeat: no-repeat;
 
         &:hover {
-          // circular gradient left most radius
-          // longer vertically than horizontally
-          background-image: radial-gradient(
-            200% 50% at left 50%,
-            var(--tw-gradient-from),
-            var(--tw-gradient-to) 50%
-          );
+          background-position: right;
         }
 
         & > svg {
@@ -228,16 +234,22 @@ const content = await Promise.all(
       );
 
       & > a {
-        @apply right-0;
+        @apply right-0 transition-all;
+        // circular gradient right most radius
+        // longer vertically than horizontally
+        background-image: radial-gradient(
+          200% 50% at right 50%,
+          var(--tw-gradient-from),
+          var(--tw-gradient-to) 50%
+        );
+
+        // hover gradient animation
+        background-size: 200% 100%;
+        background-position: -100% 0;
+        background-repeat: no-repeat;
 
         &:hover {
-          // circular gradient right most radius
-          // longer vertically than horizontally
-          background-image: radial-gradient(
-            200% 50% at right 50%,
-            var(--tw-gradient-from),
-            var(--tw-gradient-to) 50%
-          );
+          background-position: left;
         }
       }
     }
