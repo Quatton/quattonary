@@ -73,7 +73,7 @@ const content = await Promise.all(
         Array.from({ length: content.length }, (_, idx) => (
           <div
             id={`page-${idx + 1}`}
-            class="w-[100dvw] h-full shrink-0 text-[48rem] snap-start odd:lg:hidden last:max-md:hidden"
+            class="w-[100dvw] h-full shrink-0 text-[48rem] snap-start odd:lg:hidden last:max-lg:hidden"
             style={
               {
                 // backgroundColor: `hsl(${
@@ -121,7 +121,7 @@ const content = await Promise.all(
         "--total": content.length + 1,
       }}
     >
-      <div class="max-md:hidden" />
+      <div class="max-lg:hidden" />
       <article
         class={cn(
           "rounded-lg absolute prose prose-invert prose-sm aspect-[9/16] lg:aspect-square bg-neutral-900 p-4 w-full lg:w-1/2 shadow-neutral-950 shadow-lg",

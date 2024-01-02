@@ -23,7 +23,7 @@ const blogPosts = (await getCollection("blogMeta")).toSorted(
         return (
           <a
             href={`/blog/${blog.id}`}
-            class="rounded-md aspect-[9/16] md:aspect-square shadow-neutral-800 shadow-md transition-all overflow-visible"
+            class="rounded-md aspect-[9/16] lg:aspect-square shadow-neutral-800 shadow-md transition-all overflow-visible"
             transition:name="book"
           >
             <div class="font-serif grid-rows-[1fr_auto] origin-left transition-all w-full h-full grid grid-[1fr_auto] place-items-center place-content-center bg-neutral-900 rounded-md p-4">
