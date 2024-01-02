@@ -60,7 +60,7 @@ const content = await Promise.all(
     >
       <div
         id={`page-0`}
-        class="w-[100dvw] h-full shrink-0 text-[48rem] snap-start"
+        class="w-[100vw] h-full shrink-0 text-[48rem] snap-start"
         style={
           {
             // backgroundColor: `hsl(${
@@ -73,7 +73,7 @@ const content = await Promise.all(
         Array.from({ length: content.length }, (_, idx) => (
           <div
             id={`page-${idx + 1}`}
-            class="w-[100dvw] h-full shrink-0 text-[48rem] snap-start odd:lg:hidden last:max-lg:hidden"
+            class="w-[100vw] h-full shrink-0 text-[48rem] snap-start odd:lg:hidden last:max-lg:hidden"
             style={
               {
                 // backgroundColor: `hsl(${
@@ -87,7 +87,7 @@ const content = await Promise.all(
       }
       <div
             id={`page-${content.length + 1}`}
-            class="w-[100dvw] h-full shrink-0 text-[48rem] snap-start"
+            class="w-[100vw] h-full shrink-0 text-[48rem] snap-start"
             style={
               {
                 // backgroundColor: `hsl(${
