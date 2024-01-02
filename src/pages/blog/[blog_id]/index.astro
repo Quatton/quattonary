@@ -5,14 +5,11 @@ import {
   getEntry,
   type CollectionEntry,
 } from "astro:content";
-// import { Book } from "@components/solid/book";
-// import { BookPage } from "@components/solid/book-page";
 import { split } from "string-ts";
 
 import BlogLayout from "@/layouts/BlogLayout.astro";
-import { cn } from "@/lib/utils";
-// import Icon from "astro-icon";
-
+import { cn, formatDate } from "@/lib/utils";
+import Icon from "astro-icon";
 export const prerender = true;
 
 export async function getStaticPaths() {
@@ -61,11 +58,22 @@ const content = await Promise.all(
     <div
       class="flex h-full overflow-x-auto background-scroll snap-x snap-mandatory scroll-smooth"
     >
+      <div
+        id={`page-0`}
+        class="w-[100dvw] h-full shrink-0 text-[48rem] snap-start"
+        style={
+          {
+            // backgroundColor: `hsl(${
+            //   (idx * 360) / content.length
+            // }, 100%, 50%, 0.2)`,
+          }
+        }
+      />
       {
-        Array.from({ length: content.length + 2 }, (_, idx) => (
+        Array.from({ length: content.length }, (_, idx) => (
           <div
-            id={`page-${idx}`}
-            class="w-[100dvw] h-full shrink-0 text-[48rem] snap-start odd:lg:hidden last:max-lg:hidden"
+            id={`page-${idx + 1}`}
+            class="w-[100dvw] h-full shrink-0 text-[48rem] snap-start odd:lg:hidden last:max-md:hidden"
             style={
               {
                 // backgroundColor: `hsl(${
@@ -75,7 +83,19 @@ const content = await Promise.all(
             }
           />
         ))
+        
       }
+      <div
+            id={`page-${content.length + 1}`}
+            class="w-[100dvw] h-full shrink-0 text-[48rem] snap-start"
+            style={
+              {
+                // backgroundColor: `hsl(${
+                //   (idx * 360) / content.length
+                // }, 100%, 50%, 0.2)`,
+              }
+            }
+          />
     </div>
 
     <!-- <div
@@ -98,9 +118,30 @@ const content = await Promise.all(
     <div
       class="absolute top-1/2 left-1/2 max-lg:h-[min(36rem,80%)] lg:w-[min(48rem,80%)] aspect-[9/16] lg:aspect-[2/1] book-parent antialiased font-serif"
       style={{
-        "--total": content.length,
+        "--total": content.length + 1,
       }}
     >
+      <div class="max-md:hidden" />
+      <article
+        class={cn(
+          "rounded-lg absolute prose prose-invert prose-sm aspect-[9/16] lg:aspect-square bg-neutral-900 p-4 w-full lg:w-1/2 shadow-neutral-950 shadow-lg",
+          "flex flex-col gap-2 items-center justify-center"
+        )}
+        style={{
+          "--offset": 0,
+        }}
+        transition:name="book"
+      >
+        <h2 transition:name="book-title">
+          {pageMeta.data.title}
+        </h2>
+        <p
+          transition:name="book-date"
+        >
+          <Icon name="noto:calendar" class="inline mr-1 w-4 h-4" />
+          {formatDate(pageMeta.data.date)}
+        </p>
+      </article>
       {
         content.map(({ Content, page }, idx) => (
           // <BookPage page={parseInt(page)} meta={pageMeta.data}>
@@ -110,7 +151,7 @@ const content = await Promise.all(
                 "prose prose-invert prose-sm text-pretty rounded-lg absolute h-full bg-neutral-900 p-4 w-full lg:w-1/2 shadow-neutral-950 shadow-lg"
               )}
               style={{
-                "--offset": idx,
+                "--offset": idx + 1,
               }}
             >
               <Content />
@@ -157,11 +198,10 @@ const content = await Promise.all(
       <article
         class={cn(
           "rounded-lg absolute prose prose-invert prose-sm aspect-[9/16] lg:aspect-square bg-neutral-900 p-4 w-full lg:w-1/2 shadow-neutral-950 shadow-lg",
-          content.length % 2 === 0 ? "right-page" : "left-page",
           "flex flex-col gap-2 items-center justify-center"
         )}
         style={{
-          "--offset": content.length,
+          "--offset": content.length + 1,
         }}
       >
         <p class="font-serif text-xs break-words text-center text-balance">
@@ -176,6 +216,10 @@ const content = await Promise.all(
   </section>
 
   <style lang="scss" is:global>
+    :root {
+      --font-size-base: 16px
+    }
+
     $base: translateX(-50%) translateY(-50%);
 
     section {

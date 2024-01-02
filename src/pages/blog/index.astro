@@ -23,13 +23,20 @@ const blogPosts = (await getCollection("blogMeta")).toSorted(
         return (
           <a
             href={`/blog/${blog.id}`}
-            class="rounded-md aspect-square shadow-neutral-800 shadow-md transition-all overflow-visible"
+            class="rounded-md aspect-[9/16] md:aspect-square shadow-neutral-800 shadow-md transition-all overflow-visible"
+            transition:name="book"
           >
-            <div class="grid-rows-[1fr_auto] origin-left transition-all w-full h-full grid grid-[1fr_auto] place-items-center place-content-center bg-neutral-900 rounded-md p-4">
-              <h2 class="font-bold text-lg md:text-xl text-balance">
+            <div class="font-serif grid-rows-[1fr_auto] origin-left transition-all w-full h-full grid grid-[1fr_auto] place-items-center place-content-center bg-neutral-900 rounded-md p-4">
+              <h2
+                class="font-bold text-lg md:text-xl text-balance"
+                transition:name="book-title"
+              >
                 {blog.data.title}
               </h2>
-              <p class="flex items-center gap-2 text-xs md:text-sm text-neutral-400">
+              <p
+                class="flex items-center gap-2 text-xs md:text-sm text-neutral-400"
+                transition:name="book-date"
+              >
                 <Icon name="noto:calendar" class="w-4 h-4" />
                 {formatDate(blog.data.date)}
               </p>
