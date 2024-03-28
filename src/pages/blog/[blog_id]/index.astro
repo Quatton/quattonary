@@ -314,8 +314,7 @@ const content = await Promise.all(
       rotate: y calc((var(--total) - var(--offset)) * -0.1deg);
       animation: flip-even linear forwards;
       animation-timeline: --background-scroll;
-      animation-range-start: calc(var(--offset) / var(--total) * 100% + 0.1%);
-      animation-range-end: calc(
+      animation-range: calc(var(--offset) / var(--total) * 100% + 0.1%) calc(
         (var(--offset) + 1) / var(--total) * 100% + 0.1%
       );
 
@@ -330,10 +329,9 @@ const content = await Promise.all(
       rotate: y calc(180deg - (var(--total) - var(--offset)) * 0.1deg);
       animation: flip-odd linear forwards;
       animation-timeline: --background-scroll;
-      animation-range-start: calc(
+      animation-range: calc(
         (var(--offset) - 1) / var(--total) * 100% + 0.5%
-      );
-      animation-range-end: calc(var(--offset) / var(--total) * 100% + 0.5%);
+      ) calc(var(--offset) / var(--total) * 100% + 0.5%);
 
       & > a:first-of-type {
         @apply left-0 transition-all left-link;
